@@ -7,10 +7,12 @@ class ProductRepo implements IProductRepo{
     constructor(){
         this.url = 'http://www.quick2goapiprod.somee.com/api/productos/';
     }
+    //GET ALL PRODUCT
     async getall(): Promise<Product[]> {
         const response = await axios.get<Product[]>(this.url);
         return response.data;
     }
+    //GET ONE => Id
     async getOne(id: number): Promise<Product> {
         const response = await axios.get<Product>(this.url+id);
         return response.data;

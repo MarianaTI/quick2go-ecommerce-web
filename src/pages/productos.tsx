@@ -1,33 +1,14 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import CreateProduct from "./CreateProduct";
-const url = "http://www.quick2goapiprod.somee.com/api/productos";
+import CreateProduct from "./api/product/CreateProduct";
 
 function Productos() {
-  //datos
-  const form = new FormData();
-  const [producto, setProducto] = useState([]);
-  //get
-  useEffect(() => {
-    const getProductos = async () => {
-      const response = await axios.get(url);
-      setProducto(response.data);
-    };
-    getProductos();
-  }, []);
-
-  // const handleChangePost = (event) => {
-  //     form.set(event.target.name, event.target.value)
-  //     console.log(form);
-  // };
-  // const handleChangeFoto = (event) => {
-  //     form.set("foto",event.target.files[0])
-  // };
-
-  //return
   return (
     <CreateProduct/>
-    // <div>
+  );
+}
+
+export default Productos;
+
+// <div>
     //   <h1>PRODUCTOS</h1>
     //   <Table celled size="small" color="purple">
     //     <Table.Header>
@@ -72,7 +53,3 @@ function Productos() {
                 <button type="submit">Agregar</button>
             </form>               */
     // </div>
-  );
-}
-
-export default Productos;

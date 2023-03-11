@@ -46,8 +46,8 @@ const CreateProduct = () => {
         <label htmlFor="descripcion">Descripción</label><br></br>
         <input type="text" name="Descripcion" id="descripcion" value={values.descripcion} onChange={handleChange}></input><br></br>
 
-        <label htmlFor="idCategoria">Id categoria</label><br></br>
-        <input type="text" name="CategoriaId" id="idCategoria" value={values.idCategoria} onChange={handleChange}></input><br></br>
+        <label htmlFor="categoriaId">Id categoria</label><br></br>
+        <input type="text" name="CategoriaId" id="categoriaId" value={values.categoriaId} onChange={handleChange}></input><br></br>
 
         <label htmlFor="precio">Precio</label><br></br>
         <input type="text" name="Precio" id="precio" value={values.precio} onChange={handleChange}></input><br></br>

@@ -4,7 +4,7 @@ interface Product{
     nombreProducto?: string,
     descripcion?: string,
     precio?: number,
-    idCategoria?: number,
+    categoriaId?: number,
     foto?: any
 }
 export default Product;
