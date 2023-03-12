@@ -15,10 +15,7 @@ const CreateProduct = () => {
     //renderizar para evitar que se recargue la pagina
     e.preventDefault();
     console.log(e);
-    setValues({
-      ...values,
-      foto:values.foto[0]
-    })
+
     try {
       const createdProduct: Product = await createProduct.run(values);
       console.log(createdProduct);
@@ -38,7 +35,7 @@ const CreateProduct = () => {
       [name]:value,
     });
   };
-  const handleUpdateFiles = (pictures: any) => setValues({ ...values, foto: pictures });
+  const handleUpdateFiles = (pictures: [0]) => setValues({ ...values, foto: pictures[0] });
   return (
     <div>
       <form onSubmit={postProductos}>
