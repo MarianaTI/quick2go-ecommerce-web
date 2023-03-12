@@ -10,7 +10,8 @@ const CreateOrder = () => {
     const orderRepo = new OrderRepo();
     const createOrder = new CreateOrderUseCase(orderRepo);
 
-    const postOrders = async () => {
+    const postOrders = async (e:any) => {
+        e.preventDefault();
         try {
             const createdOrder: Order = await createOrder.run(values);
             console.log(createdOrder);

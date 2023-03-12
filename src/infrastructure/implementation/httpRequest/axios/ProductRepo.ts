@@ -18,7 +18,11 @@ class ProductRepo implements IProductRepo{
         return response.data;
     }
     async create(product: Product): Promise<Product> {
-        const response = await axios.post<Product>(this.url, product);
+        const response = await axios.post<Product>(this.url, product, {
+            headers:{
+                'Content-Type': 'multipart/form-data'
+            }
+        });
         return response.data;
     }
     async update(product: Product): Promise<Product> {

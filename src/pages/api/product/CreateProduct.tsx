@@ -12,13 +12,19 @@ const CreateProduct = () => {
   const createProduct = new CreateProductUseCase(productRepo);
 
   const postProductos = async (e:any) => {
+    //renderizar para evitar que se recargue la pagina
+    e.preventDefault();
     console.log(e);
+    setValues({
+      ...values,
+      foto:values.foto[0]
+    })
     try {
       const createdProduct: Product = await createProduct.run(values);
       console.log(createdProduct);
-      
-    } catch (e) {
-      console.error(e);
+      console.log(values);
+    } catch (err) {
+      console.error(err);
     }
   };
   //funciones
