@@ -1,7 +1,7 @@
 import CreateProductUseCase from '@/application/usecases/productUseCase/CreateProductUseCase';
-import { ImagePreviewInput } from '@/components/ImagePreviewInput';
 import Product from '@/domain/entities/product';
 import ProductRepo from '@/infrastructure/implementation/httpRequest/axios/ProductRepo';
+import { ImagePreviewInput } from '@/components/ImagePreviewInput';
 import React, { useState } from 'react'
 
 const CreateProduct = () => {
@@ -11,7 +11,8 @@ const CreateProduct = () => {
   const productRepo = new ProductRepo();
   const createProduct = new CreateProductUseCase(productRepo);
 
-  const postProductos = async () => {
+  const postProductos = async (e:any) => {
+    console.log(e);
     try {
       const createdProduct: Product = await createProduct.run(values);
       console.log(createdProduct);
