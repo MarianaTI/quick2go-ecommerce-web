@@ -7,7 +7,7 @@ import Orders from '@/pages/orders'
 export default function Home() {
   return (
     <div>
-      <Productos/>
+      <Orders/>
     </div>
   )
 }

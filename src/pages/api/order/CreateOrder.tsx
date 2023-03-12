@@ -1,7 +1,7 @@
 import CreateOrderUseCase from "@/application/usecases/orderUseCase/CreateOrderUserCase";
 import Order from "@/domain/entities/order";
 import OrderRepo from "@/infrastructure/implementation/httpRequest/axios/OrderRepo";
-import { NearMe } from "@mui/icons-material";
+import { Formik } from "formik";
 import React, {useState} from "react";
 
 const CreateOrder = () => {
@@ -30,6 +30,37 @@ const CreateOrder = () => {
 
     return (
         <div>
+            {/* <Formik initialValues={values} onSubmit={postOrders}>
+            {({
+              values,
+              setValues,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+            }) => (
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="productoId">Código de producto</label><br/>
+                    <input type="text" 
+                    name="productoId" 
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.productoId} 
+                    /><br />
+                    
+                    <label htmlFor="cantidadProducto">Cantidad de productos</label><br/>
+                    <input type="text" 
+                    name="cantidadProducto" 
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.cantidadProducto} 
+                    /><br />
+
+                    <button type="submit">Agregar</button>
+                </form>
+            )}
+            </Formik> */}
             <form onSubmit={postOrders}>
                 <label htmlFor="productoId">Código de producto</label><br/>
                 <input type="text" 
