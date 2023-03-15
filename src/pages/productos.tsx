@@ -1,8 +1,10 @@
 import CreateProduct from "./api/product/CreateProduct";
+import GetAllProduct from "./api/product/GetAllProduct";
 
 function Productos() {
   return (
-    <CreateProduct/>
+    // <CreateProduct/>
+    <GetAllProduct/>
   );
 }
 
