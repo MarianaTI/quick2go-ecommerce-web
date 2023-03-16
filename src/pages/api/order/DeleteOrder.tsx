@@ -18,3 +18,4 @@ const DeleteOrder = () => {
         }
     }
 }
+export default DeleteOrder;
