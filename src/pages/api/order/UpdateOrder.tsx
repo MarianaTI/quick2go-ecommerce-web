@@ -1,78 +1,44 @@
 import UpdateOrderUseCase from "@/application/usecases/orderUseCase/UpdateOrderUseCase";
+import GetOneOrderUseCase from "@/application/usecases/orderUseCase/GetOneOrderUseCase";
 import Order from "@/domain/entities/order";
 import OrderRepo from "@/infrastructure/implementation/httpRequest/axios/OrderRepo";
 import React, { useState } from "react";
 
 const UpdateOrder = () => {
+  const [valueId, setValueId] = useState('');
   const [values, setValues] = useState<Order>({});
 
   const orderRepo = new OrderRepo();
+  const getOneOrder = new GetOneOrderUseCase(orderRepo);
   const updateOrder = new UpdateOrderUseCase(orderRepo);
 
-  const putOrders = async (e: any) => {
-    e.preventDefault();
+  const getOrder = async () => {
     try {
-      const updatedOrder: Order = await updateOrder.run(values);
-      console.log(updatedOrder);
+      const foundOrder = await getOneOrder.run(setValueId);
+      setValues(foundOrder);
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
+  const handleUpdateOrder = async () => {
+    try {
+      const updatedOrder = await updateOrder.run(values);
+      console.log(updatedOrder);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
-  const handleEdit = (values: any) => {
-    setValues(values);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value} = e.target;
+    setValues({...values, [name]: value});
   };
 
   return (
-    <div>
-      <form onSubmit={putOrders}>
-        <label htmlFor="id">ID</label>
-        <input
-          type="text"
-          id="id"
-          name="id"
-          value={values.id}
-          onChange={handleChange}
-        />
-
-        <label htmlFor="productoId">Código de producto</label>
-        <input
-          type="text"
-          id="productoId"
-          name="productoId"
-          value={values.productoId}
-          onChange={handleChange}
-        />
-
-        <label htmlFor="cantidadProducto">Cantidad de productos</label>
-        <input
-          type="text"
-          id="cantidadProducto"
-          name="cantidadProducto"
-          value={values.cantidadProducto}
-          onChange={handleChange}
-        />
-
-        <label htmlFor="subTotal">SubTotal</label>
-        <input
-          type="text"
-          id="subTotal"
-          name="subTotal"
-          value={values.subTotal}
-          onChange={handleChange}
-        />
-
-        <button type="submit">Actualizar orden</button>
-      </form>
-    </div>
+    <>
+      
+    </>
   );
 };
 export default UpdateOrder;

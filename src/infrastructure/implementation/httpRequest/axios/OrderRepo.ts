@@ -29,3 +29,5 @@ class OrderRepo implements IOrderRepo{
     }
 }
 export default OrderRepo;
+
+//como puedo hacer que al momento de colocar un id, traer sus datos en un input y desde ahi poder modificar esos datos, darle a un boton para actualizarlos

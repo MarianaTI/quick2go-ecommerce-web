@@ -1,7 +1,7 @@
 import GetOneOrderUseCase from "@/application/usecases/orderUseCase/GetOneOrderUseCase";
 import Order from "@/domain/entities/order";
 import OrderRepo from "@/infrastructure/implementation/httpRequest/axios/OrderRepo";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const GetOneOrder = () => {
   const [values, setValues] = useState<Order | null>(null);
