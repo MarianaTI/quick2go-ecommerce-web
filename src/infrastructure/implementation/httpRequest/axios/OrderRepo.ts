@@ -20,7 +20,11 @@ class OrderRepo implements IOrderRepo{
         return response.data;
     }
     async update(order: Order): Promise<Order> {
-        const response = await axios.put<Order>(this.url+order.id);
+        const response = await axios.put<Order>(this.url+order.id, {
+            headers:{
+                'Content-Type': 'multipart/form-data'
+            }
+        });
         return response.data;
     }
     async delete(id: number): Promise<Order> {

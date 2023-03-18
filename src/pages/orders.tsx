@@ -8,8 +8,8 @@ function Orders() {
     <>
       <CreateOrder />
       <GetAllOrder />
-      <UpdateOrder />
       <GetOneOrder />
+      <UpdateOrder />
     </>
   );
 }

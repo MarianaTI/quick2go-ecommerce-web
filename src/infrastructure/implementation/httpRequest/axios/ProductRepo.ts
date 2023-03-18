@@ -5,7 +5,7 @@ import axios from "axios";
 class ProductRepo implements IProductRepo{
     private readonly url:string;
     constructor(){
-        this.url = 'http://www.quick2goapiprod.somee.com/api/productos';
+        this.url = 'http://www.quick2goapiprod.somee.com/api/productos/';
     }
     //GET ALL PRODUCT
     async getall(): Promise<Product[]> {

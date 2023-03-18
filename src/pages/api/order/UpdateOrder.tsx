@@ -5,16 +5,15 @@ import OrderRepo from "@/infrastructure/implementation/httpRequest/axios/OrderRe
 import React, { useState } from "react";
 
 const UpdateOrder = () => {
-  const [valueId, setValueId] = useState('');
   const [values, setValues] = useState<Order>({});
 
   const orderRepo = new OrderRepo();
   const getOneOrder = new GetOneOrderUseCase(orderRepo);
   const updateOrder = new UpdateOrderUseCase(orderRepo);
 
-  const getOrder = async () => {
+  const getOrder = async (id: number = 0) => {
     try {
-      const foundOrder = await getOneOrder.run(setValueId);
+      const foundOrder = await getOneOrder.run(id);
       setValues(foundOrder);
     } catch (e) {
       console.error(e);
@@ -30,14 +29,56 @@ const UpdateOrder = () => {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value} = e.target;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value} = event.target;
     setValues({...values, [name]: value});
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    handleUpdateOrder();
   };
 
   return (
     <>
-      
+    <br />
+      <form onSubmit={handleSubmit}>
+        <label>
+          ID de la orden:
+          <input type="number" name="id" onChange={handleChange} />
+        </label>
+        <button onClick={() => getOrder(values.id)}>cargar</button>
+        <br />
+        <label>
+          ID del producto:
+          <input
+            type="number"
+            name="productoId"
+            value={values.productoId}
+            onChange={handleChange}
+          />
+        </label> <br />
+        <label>
+          Cantidad del producto:
+          <input
+            type="number"
+            name="cantidadProducto"
+            value={values.cantidadProducto}
+            onChange={handleChange}
+          />
+        </label><br />
+        <label>
+          Subtotal:
+          <input
+            type="number"
+            name="subTotal"
+            value={values.subTotal}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <button type="submit">Actualizar</button>
+      </form>
     </>
   );
 };
