@@ -3,6 +3,7 @@ import GetOneOrderUseCase from "@/application/usecases/orderUseCase/GetOneOrderU
 import Order from "@/domain/entities/order";
 import OrderRepo from "@/infrastructure/implementation/httpRequest/axios/OrderRepo";
 import React, { useState } from "react";
+import { Button } from "@mui/material";
 
 const UpdateOrder = () => {
   const [values, setValues] = useState<Order>({});
@@ -23,6 +24,7 @@ const UpdateOrder = () => {
   const handleUpdateOrder = async () => {
     try {
       const updatedOrder = await updateOrder.run(values);
+      setValues(updatedOrder);
       console.log(updatedOrder);
     } catch (e) {
       console.error(e);
@@ -41,20 +43,19 @@ const UpdateOrder = () => {
 
   return (
     <>
-    <br />
-      <form onSubmit={handleSubmit}>
-        <label>
+     <label>
           ID de la orden:
           <input type="number" name="id" onChange={handleChange} />
         </label>
         <button onClick={() => getOrder(values.id)}>cargar</button>
+      <form onSubmit={handleSubmit}>
         <br />
         <label>
           ID del producto:
           <input
-            type="number"
+            type="text"
             name="productoId"
-            value={values.productoId}
+            value={values.producto?.id}
             onChange={handleChange}
           />
         </label> <br />
@@ -67,7 +68,7 @@ const UpdateOrder = () => {
             onChange={handleChange}
           />
         </label><br />
-        <label>
+        {/* <label>
           Subtotal:
           <input
             type="number"
@@ -75,7 +76,7 @@ const UpdateOrder = () => {
             value={values.subTotal}
             onChange={handleChange}
           />
-        </label>
+        </label> */}
         <br />
         <button type="submit">Actualizar</button>
       </form>

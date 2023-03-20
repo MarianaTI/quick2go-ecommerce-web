@@ -14,19 +14,18 @@ import {
   Typography,
   Breadcrumbs,
   Link,
+  Modal,
+  TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import UpdateOrderUseCase from "@/application/usecases/orderUseCase/UpdateOrderUseCase";
 
 const GetAllOrder = () => {
   const [values, setValues] = useState<Order[]>([]);
   const [deletedOrder, setDeletedOrder] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   const orderRepo = new OrderRepo();
   const getAllOrder = new GetAllOrderUseCase(orderRepo);
   const deleteOrder = new DeleteOrderUseCase(orderRepo);
-  const updateOrder = new UpdateOrderUseCase(orderRepo);
 
   useEffect(() => {
     const getAllOrderMethod = async () => {
@@ -76,8 +75,8 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                {" "}
-                Código{" "}
+                
+                Código
               </TableCell>
               <TableCell
                 align="center"
@@ -88,8 +87,8 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                {" "}
-                Código de productos
+                
+                Productos
               </TableCell>
               <TableCell
                 align="center"
@@ -100,8 +99,8 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                {" "}
-                Cantidad de productos
+                
+                Cantidad
               </TableCell>
               <TableCell
                 align="center"
@@ -112,8 +111,8 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                {" "}
-                Subtotal{" "}
+                
+                Subtotal
               </TableCell>
               <TableCell
                 align="center"
@@ -124,8 +123,8 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                {" "}
-                Control{" "}
+                
+                Control
               </TableCell>
             </TableRow>
           </TableHead>
@@ -136,19 +135,19 @@ const GetAllOrder = () => {
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
-                  # {values.id}{" "}
+                  # {values.id}
                 </TableCell>
                 <TableCell
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
-                  # {values.productoId}{" "}
+                {values.producto?.nombreProducto}
                 </TableCell>
                 <TableCell
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
-                  {values.cantidadProducto} productos
+                  # {values.cantidadProducto} 
                 </TableCell>
                 <TableCell
                   align="center"
@@ -160,8 +159,8 @@ const GetAllOrder = () => {
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
-                  <Button
-                    onClick={() => deleteOrderById(values.id)}
+                  {/* <Button
+                    onClick={() => handleEditClick(values)}
                     style={{
                       backgroundColor: "#6750A4",
                       color: "white",
@@ -170,7 +169,7 @@ const GetAllOrder = () => {
                     }}
                   >
                     Editar
-                  </Button>
+                  </Button> */}
                   <Button
                     onClick={() => deleteOrderById(values.id)}
                     style={{

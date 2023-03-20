@@ -1,7 +1,9 @@
+import Product from "./product";
+
 //entidad order
 interface Order{
     id?: number,
-    productoId?: number,
+    producto?: Product,
     cantidadProducto?: number,
     subTotal?: number
 }

@@ -17,9 +17,9 @@ function Orders() {
         sx={{
           fontSize: 32,
           color: "#49454E",
-          paddingBottom: 2,
+          paddingBottom: 1,
           fontWeight: 600,
-          fontFamily: "Paytone One",
+          fontFamily: "Quicksand",
         }}
       >
         Pedidos
@@ -29,7 +29,7 @@ function Orders() {
           aria-label="breadcrumb"
           sx={{
             fontSize: 16,
-            paddingBottom: 5,
+            paddingBottom: 3,
             fontFamily: "Quicksand",
             fontWeight: 800,
           }}
@@ -49,8 +49,8 @@ function Orders() {
       </div>
       <CreateOrder />
       <GetAllOrder />
-      {/* <GetOneOrder />
-      <UpdateOrder /> */}
+       {/* <GetOneOrder /> */}
+      <UpdateOrder /> 
     </>
   );
 }
