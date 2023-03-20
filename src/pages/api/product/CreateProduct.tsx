@@ -51,7 +51,7 @@ const CreateProduct = () => {
         <input type="text" name="Descripcion" id="descripcion" value={values.descripcion} onChange={handleChange}></input><br></br>
 
         <label htmlFor="categoriaId">Id categoria</label><br></br>
-        <input type="text" name="CategoriaId" id="categoriaId" value={values.categoriaId} onChange={handleChange}></input><br></br>
+        <input type="text" name="CategoriaId" id="categoriaId" value={values.categoria?.id} onChange={handleChange}></input><br></br>
 
         <label htmlFor="precio">Precio</label><br></br>
         <input type="text" name="Precio" id="precio" value={values.precio} onChange={handleChange}></input><br></br>

@@ -3,8 +3,9 @@ import Product from "./product";
 //entidad order
 interface Order{
     id?: number,
-    producto?: Product,
+    productoId?: number,
     cantidadProducto?: number,
     subTotal?: number
+    producto?: Product,
 }
 export default Order;

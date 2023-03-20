@@ -49,7 +49,7 @@ function Orders() {
       </div>
       <CreateOrder />
       <GetAllOrder />
-       {/* <GetOneOrder /> */}
+       <GetOneOrder />
       <UpdateOrder /> 
     </>
   );

@@ -29,7 +29,7 @@ const GetOneOrder = () => {
           <h2>detalles</h2>
           <p>{values.id}</p>
           <p>{values.cantidadProducto}</p>
-          <p>{values.producto?.nombreProducto}</p>
+          <p>{values.productoId}</p>
           <p>{values.subTotal}</p>
         </div>
       )}
