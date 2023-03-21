@@ -192,11 +192,14 @@ export const PreviewContainer = styled.div`
 export const ImageProfileInputStyles = styled.div`
   & > .image-input-container {
     position: relative;
+    width: ${props => props.size ? props.size : '150px'};
+    margin:0;
+    height: ${props => props.size ? props.size : '150px'};
     & > .img-container, > .avatar {
       width: ${props => props.size ? props.size : '150px'};
       height: ${props => props.size ? props.size : '150px'};
-      border-radius: 50%;
-      background: rgb(228, 223, 233);
+      border-radius: ${props => props.radius ? props.radius : '50%'};
+      background: #cfc0e8;
     }
     & > .img-container {
       overflow: hidden;
@@ -215,6 +218,7 @@ export const ImageProfileInputStyles = styled.div`
         color: #fff;
       }
     }
+    //propiedades del boton
     & > .picture-upload-container {
       position: absolute;
       display: flex;
@@ -223,7 +227,7 @@ export const ImageProfileInputStyles = styled.div`
       right: -15px;
       box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, .5);
       padding: 4px 6px;
-      background: rgb(36, 0, 80);
+      background: #7e57c2;
       color: #fff;
       font-size: 14px;
       border-radius: 4px;
@@ -235,6 +239,9 @@ export const ImageProfileInputStyles = styled.div`
       & > .icon {
         font-size: 16px;
         margin-right: 5px;
+      }
+      & > p{
+        margin: 0;
       }
       & > .form-field {
         display: block;

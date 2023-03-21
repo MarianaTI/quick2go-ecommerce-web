@@ -1,8 +1,9 @@
 import CreateProductUseCase from "@/application/usecases/productUseCase/CreateProductUseCase";
 import Product from "@/domain/entities/product";
 import ProductRepo from "@/infrastructure/implementation/httpRequest/axios/ProductRepo";
-import { ImagePreviewInput } from "@/components/ImagePreviewInput";
-import React, { useState } from "react";
+import { ImagePreviewInput } from "@/components/Inputs/ImagePreviewInput";
+import React, { SyntheticEvent, useState } from "react";
+import ImageInput from "@/components/Inputs/ImageInput/ImageInput";
 import { Box, Button, Modal } from "@mui/material";
 
 const style = {
@@ -10,16 +11,15 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width:600,
+  width: 370,
   bgcolor: "background.paper",
   border: "none",
   boxShadow: 10,
   pt: 2,
   px: 4,
   pb: 3,
-  borderRadius:8
+  borderRadius: 8,
 };
-
 
 const CreateProduct = () => {
   //state
@@ -60,8 +60,8 @@ const CreateProduct = () => {
       [name]: value,
     });
   };
-  const handleUpdateFiles = (pictures: [0]) =>
-    setValues({ ...values, foto: pictures[0] });
+  const handleUpdateFiles = (pictures: any) =>
+    setValues({ ...values, foto: pictures });
   return (
     <div>
       <Button
@@ -79,56 +79,60 @@ const CreateProduct = () => {
       </Button>
       <Modal open={openAdd} onClose={handleCloseAdd}>
         <Box sx={style}>
-        <form onSubmit={postProductos}>
-          <label htmlFor="nombreProducto">Nombre</label>
-          <br></br>
-          <input
-            type="text"
-            name="NombreProducto"
-            id="nombreProducto"
-            value={values.nombreProducto}
-            onChange={handleChange}
-          />
-          <br />
+          <form onSubmit={postProductos}>
+            <label htmlFor="nombreProducto">Nombre</label>
+            <br></br>
+            <input
+              type="text"
+              name="NombreProducto"
+              id="nombreProducto"
+              value={values.nombreProducto}
+              onChange={handleChange}
+            />
+            <br />
 
-          <label htmlFor="descripcion">Descripción</label>
-          <br></br>
-          <input
-            type="text"
-            name="Descripcion"
-            id="descripcion"
-            value={values.descripcion}
-            onChange={handleChange}
-          ></input>
-          <br></br>
+            <label htmlFor="descripcion">Descripción</label>
+            <br></br>
+            <input
+              type="text"
+              name="Descripcion"
+              id="descripcion"
+              value={values.descripcion}
+              onChange={handleChange}
+            ></input>
+            <br></br>
 
-          <label htmlFor="categoriaId">Id categoria</label>
-          <br></br>
-          <input
-            type="text"
-            name="CategoriaId"
-            id="categoriaId"
-            value={values.categoria?.id}
-            onChange={handleChange}
-          ></input>
-          <br></br>
+            <label htmlFor="categoriaId">Id categoria</label>
+            <br></br>
+            <input
+              type="text"
+              name="CategoriaId"
+              id="categoriaId"
+              value={values.categoria?.id}
+              onChange={handleChange}
+            ></input>
+            <br></br>
 
-          <label htmlFor="precio">Precio</label>
-          <br></br>
-          <input
-            type="text"
-            name="Precio"
-            id="precio"
-            value={values.precio}
-            onChange={handleChange}
-          ></input>
-          <br></br>
+            <label htmlFor="precio">Precio</label>
+            <br></br>
+            <input
+              type="text"
+              name="Precio"
+              id="precio"
+              value={values.precio}
+              onChange={handleChange}
+            ></input>
+            <br></br>
 
-          <label htmlFor="foto">Foto</label>
-          <br></br>
-          <ImagePreviewInput updateFilesCb={handleUpdateFiles} maxFiles={1} />
-          <button type="submit">Agregar</button>
-        </form>
+            <label htmlFor="foto">Foto</label>
+            <br></br>
+            <ImageInput
+              updatePictureCb={handleUpdateFiles}
+              size="200px"
+              radius="15px"
+            />
+            <button type="submit">Agregar</button>
+          </form>
         </Box>
       </Modal>
     </div>

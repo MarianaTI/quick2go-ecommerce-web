@@ -228,7 +228,7 @@ const GetAllProduct = () => {
                   {values.categoria?.nombre}
                 </TableCell>
                 <TableCell align="center">
-                  <img src={values.foto} width={150} height={50} />
+                  <img src={values.foto} width={50} height={50} />
                 </TableCell>
                 <TableCell align="center">
                   <Button

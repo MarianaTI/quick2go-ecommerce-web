@@ -263,6 +263,38 @@ export default function NavigationDrawer() {
                 />
               </ListItemOption>
             </ListItem>
+            <ListItem
+              disablePadding
+              sx={{ display: "block", paddingBottom: 2 }}
+              onClick={() => setMenudata("Categoría")}
+            >
+              <ListItemOption>
+                <ListItemIcon>
+                  <Category
+                    sx={{
+                      width: 22,
+                      height: 22,
+                      color: "#49454E",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText
+                  primary="Venta "
+                  primaryTypographyProps={{
+                    fontSize: 16,
+                    fontFamily: "Quicksand",
+                    fontWeight: 600,
+                    color: "#49454E",
+                  }}
+                  sx={{
+                    opacity: open ? 1 : 0,
+                  }}
+                />
+              </ListItemOption>
+            </ListItem>
           </List>
           <ListItem
             disablePadding
