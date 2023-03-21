@@ -1,8 +1,9 @@
 import CreateProductUseCase from '@/application/usecases/productUseCase/CreateProductUseCase';
 import Product from '@/domain/entities/product';
 import ProductRepo from '@/infrastructure/implementation/httpRequest/axios/ProductRepo';
-import { ImagePreviewInput } from '@/components/ImagePreviewInput';
-import React, { useState } from 'react'
+import { ImagePreviewInput } from '@/components/Inputs/ImagePreviewInput';
+import React, { SyntheticEvent, useState } from 'react'
+import ImageInput from '@/components/Inputs/ImageInput/ImageInput';
 
 const CreateProduct = () => {
   //state
@@ -35,7 +36,7 @@ const CreateProduct = () => {
       [name]:value,
     });
   };
-  const handleUpdateFiles = (pictures: [0]) => setValues({ ...values, foto: pictures[0] });
+  const handleUpdateFiles = (pictures: any) => setValues({ ...values, foto: pictures });
   return (
     <div>
       <form onSubmit={postProductos}>
@@ -57,7 +58,7 @@ const CreateProduct = () => {
         <input type="text" name="Precio" id="precio" value={values.precio} onChange={handleChange}></input><br></br>
 
         <label htmlFor="foto">Foto</label><br></br>
-        <ImagePreviewInput updateFilesCb={handleUpdateFiles} maxFiles={1}/>
+        <ImageInput updatePictureCb={handleUpdateFiles} size='200px' radius='15px'/>
         <button type="submit">Agregar</button>
       </form>
     </div>

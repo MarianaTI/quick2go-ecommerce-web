@@ -49,7 +49,6 @@ function Orders() {
       </div>
       <CreateOrder />
       <GetAllOrder />
-       <GetOneOrder />
       <UpdateOrder /> 
     </>
   );

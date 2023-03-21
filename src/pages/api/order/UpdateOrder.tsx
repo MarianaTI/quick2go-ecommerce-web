@@ -23,10 +23,7 @@ const style = {
 const UpdateOrder = () => {
   const [values, setValues] = useState<Order>({});
 
-  const [openAdd, setOpenAdd] = React.useState(false);
-  const handleCloseAdd = () => {
-    setOpenAdd(false);
-  };
+  
 
   const orderRepo = new OrderRepo();
   const getOneOrder = new GetOneOrderUseCase(orderRepo);
@@ -51,21 +48,7 @@ const UpdateOrder = () => {
       console.error(e);
     }
   };
-  // const handleUpdateOrder = async (e:any) => {
-  //   e.preventDefault();
-  //   try {
-  //     const updatedOrder = await updateOrder.run(values);
-  //     setValues(updatedOrder);
-  //     console.log(updatedOrder);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
 
-  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value} = event.target;
-  //   setValues({...values, [name]: value});
-  // };
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setValues({
@@ -73,41 +56,17 @@ const UpdateOrder = () => {
       [name]: value,
     });
   };
+  const [openAdd, setOpenAdd] = React.useState(false);
+  
+  const handleCloseAdd = () => {
+    setOpenAdd(false);
+  };
+
   const handleOpenAdd = () => {
     setOpenAdd(true);
   };
 
   return (
-    // <>
-    //  <label>
-    //       ID de la orden:
-    //       <input type="number" name="id" onChange={handleChange} />
-    //     </label>
-    //     <button onClick={() => getOrder(values.id)}>cargar</button>
-    //   <form onSubmit={updateOrders}>
-    //     <br />
-    //     <label>
-    //       ID del producto:
-    //       <input
-    //         type="number"
-    //         name="productoId"
-    //         value={values.productoId}
-    //         onChange={handleChange}
-    //       />
-    //     </label> <br />
-    //     <label>
-    //       Cantidad del producto:
-    //       <input
-    //         type="number"
-    //         name="cantidadProducto"
-    //         value={values.cantidadProducto}
-    //         onChange={handleChange}
-    //       />
-    //     </label><br />
-    //     <br />
-    //     <button onClick={(e) => updateOrders(e)}>Actualizar</button>
-    //   </form>
-    // </>
     <div>
       <Button
         onClick={handleOpenAdd}

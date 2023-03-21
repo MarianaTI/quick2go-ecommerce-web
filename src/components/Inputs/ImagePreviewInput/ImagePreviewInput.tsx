@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Delete, ImageNotSupported } from '@mui/icons-material';
 import { FaPlus } from 'react-icons/fa';
-import { ImagePreviewInputStyles } from './styles';
+import { ImagePreviewInputStyles } from '../styles';
 
 const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 5242880;
 // const BYTES_PER_KILO_BYTE = 1024;
@@ -24,7 +24,7 @@ const ImagePreviewInput: React.FC<ImagePreviewInputProps> = ({
 	maxFileSizeInBytes = DEFAULT_MAX_FILE_SIZE_IN_BYTES,
 	...otherProps
 }) => {
-	const [files, setFiles] = useState<any>({});
+	const [files, setFiles] = useState<any>([]);
 	const [image, setImage] = useState<any>(null);
 
 	const handleNewFileUpload = (e: any) => {
