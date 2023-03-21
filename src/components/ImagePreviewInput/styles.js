@@ -21,7 +21,7 @@ export const FileUploadContainer = styled.div`
     box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, .1);
     /* box-shadow: ${props => props.isDark ? '2px 2px 5px 5px rgba(0, 0, 0, .1)' : '2px 2px 5px 5px rgba(0, 0, 0, .05)'}; */
     min-width: 100px;
-    height: 100px;
+    height: 50px;
     padding: 15px 10px;
     display: flex;
     flex-direction: column;

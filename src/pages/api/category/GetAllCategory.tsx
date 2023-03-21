@@ -1,7 +1,6 @@
-import GetAllOrderUseCase from "@/application/usecases/orderUseCase/GetAllOrderUseCase";
-import DeleteOrderUseCase from "@/application/usecases/orderUseCase/DeleteOrderUseCase";
-import Order from "@/domain/entities/order";
-import OrderRepo from "@/infrastructure/implementation/httpRequest/axios/OrderRepo";
+import GetAllCategoryUseCase from "@/application/usecases/categoryUseCase/GetAllCategoryUseCase";
+import Category from "@/domain/entities/category";
+import CategoryRepo from "@/infrastructure/implementation/httpRequest/axios/CategoryRepo";
 import {
   TableContainer,
   Paper,
@@ -14,41 +13,29 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 
-const GetAllOrder = () => {
-  const [values, setValues] = useState<Order[]>([]);
-  const [deletedOrder, setDeletedOrder] = useState(false);
+const GetAllCategory = () => {
+  const [values, setValues] = useState<Category[]>([]);
   const [search, setSearch] = useState("");
 
-  const orderRepo = new OrderRepo();
-  const getAllOrder = new GetAllOrderUseCase(orderRepo);
-  const deleteOrder = new DeleteOrderUseCase(orderRepo);
+  const categoryRepo = new CategoryRepo();
+  const getAllCategory = new GetAllCategoryUseCase(categoryRepo);
 
   useEffect(() => {
-    const getAllOrderMethod = async () => {
+    const getAllCategoryMethod = async () => {
       try {
-        const allOrder: Order[] = await getAllOrder.run();
-        setValues(allOrder);
-        console.log(allOrder);
+        const allCategory: Category[] = await getAllCategory.run();
+        setValues(allCategory);
+        console.log(allCategory);
       } catch (e) {
         console.error(e);
       }
     };
-    getAllOrderMethod();
-  }, [deletedOrder]);
-
-  const deleteOrderById = async (id: number = 0) => {
-    try {
-      const deletedOrder = await deleteOrder.run(id);
-      setDeletedOrder(true);
-      console.log(deletedOrder);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+    getAllCategoryMethod();
+  }, []);
 
   return (
     <>
-    <input type="text" placeholder="search" onChange={(e) =>setSearch(e.target.value)} />
+        <input type="text" placeholder="search" onChange={(e) =>setSearch(e.target.value)} />
       <TableContainer
         component={Paper}
         sx={{
@@ -72,7 +59,6 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                
                 Código
               </TableCell>
               <TableCell
@@ -84,8 +70,7 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                
-                Productos
+                Nombre
               </TableCell>
               <TableCell
                 align="center"
@@ -96,8 +81,7 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                
-                Cantidad
+                Descripción
               </TableCell>
               <TableCell
                 align="center"
@@ -108,8 +92,7 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                
-                Subtotal
+                Estado
               </TableCell>
               <TableCell
                 align="center"
@@ -120,8 +103,7 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                
-                Control
+                Foto
               </TableCell>
             </TableRow>
           </TableHead>
@@ -130,7 +112,7 @@ const GetAllOrder = () => {
                 if(search === "") {
                     return value
                 }
-                else if (value.id?.toString().toLowerCase().includes(search.toLowerCase())){
+                else if (value.nombre?.toLowerCase().includes(search.toLowerCase())){
                     return value
                 }
             })
@@ -146,47 +128,25 @@ const GetAllOrder = () => {
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
-                {values.producto?.nombreProducto}
+                  {values.nombre}
                 </TableCell>
                 <TableCell
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
-                  # {values.cantidadProducto} 
+                  # {values.descripcion}
                 </TableCell>
                 <TableCell
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
-                  $ {values.subTotal}
+                  $ {values.estado}
                 </TableCell>
                 <TableCell
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
-                  {/* <Button
-                    onClick={() => handleEditClick(values)}
-                    style={{
-                      backgroundColor: "#6750A4",
-                      color: "white",
-                      fontFamily: "Quicksand",
-                      fontSize: 14,
-                    }}
-                  >
-                    Editar
-                  </Button> */}
-                  <Button
-                    onClick={() => deleteOrderById(values.id)}
-                    style={{
-                      backgroundColor: "#6750A4",
-                      color: "white",
-                      fontFamily: "Quicksand",
-                      fontSize: 14,
-                      marginLeft: 10,
-                    }}
-                  >
-                    Cancelar
-                  </Button>
+                  <img src={values.foto} width={50} height={50} />
                 </TableCell>
               </TableRow>
             ))}
@@ -195,5 +155,5 @@ const GetAllOrder = () => {
       </TableContainer>
     </>
   );
-};
-export default GetAllOrder;
+}
+export default GetAllCategory;

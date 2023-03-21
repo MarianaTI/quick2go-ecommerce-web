@@ -5,7 +5,7 @@ import GetOneProduct from "./api/product/GetOneProduct";
 function Productos() {
   return (
     <>
-      {/* <CreateProduct />  */}
+      <CreateProduct /> 
       <GetAllProduct />
       {/* <GetOneProduct /> */}
     </>

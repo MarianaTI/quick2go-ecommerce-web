@@ -18,6 +18,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import Productos from "@/pages/productos";
 import Orders from "@/pages/orders";
+import Categories from "@/pages/category";
 import Home from "@/pages";
 import {
   Category,
@@ -90,7 +91,7 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MiniDrawer() {
+export default function NavigationDrawer() {
   const theme = useTheme();
   const [open, setOpen] = useState(true);
   const [menudata, setMenudata] = useState("");
@@ -233,7 +234,7 @@ export default function MiniDrawer() {
             <ListItem
               disablePadding
               sx={{ display: "block", paddingBottom: 2 }}
-              // onClick={() => setMenudata("Productos")}
+              onClick={() => setMenudata("Categoría")}
             >
               <ListItemOption>
                 <ListItemIcon>
@@ -344,6 +345,7 @@ export default function MiniDrawer() {
       >
         {menudata == "Productos" && <Productos />}
         {menudata == "Pedidos" && <Orders />}
+        {menudata == "Categoría" && <Categories />}
       </Box>
     </Box>
   );

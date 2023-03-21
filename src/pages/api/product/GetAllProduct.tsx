@@ -13,18 +13,20 @@ import {
   Button,
   Breadcrumbs,
   Typography,
+  TextField,
 } from "@mui/material";
 import Link from "@mui/material/Link";
 import React, { useEffect, useState } from "react";
 
 function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    event.preventDefault();
-    console.info("You clicked a breadcrumb.");
-  }
+  event.preventDefault();
+  console.info("You clicked a breadcrumb.");
+}
 
 const GetAllProduct = () => {
   const [values, setValues] = useState<Product[]>([]);
   const [deletedProduct, setDeletedProduct] = useState(false);
+  const [search, setSearch] = useState("");
 
   const productRepo = new ProductRepo();
   const getAllProduct = new GetAllProductUseCase(productRepo);
@@ -55,6 +57,7 @@ const GetAllProduct = () => {
 
   return (
     <>
+    
       <Typography
         sx={{
           fontSize: 32,
@@ -89,7 +92,7 @@ const GetAllProduct = () => {
           </Link>
         </Breadcrumbs>
       </div>
-
+      <input type="text" placeholder="search" onChange={(e) =>setSearch(e.target.value)} />
       <TableContainer
         component={Paper}
         sx={{
@@ -104,44 +107,139 @@ const GetAllProduct = () => {
         <Table style={{ fontFamily: "Quicksand" }}>
           <TableHead>
             <TableRow>
-              <TableCell align="center" style={{ backgroundColor: "#7E57C2", color:'white', fontFamily:'Quicksand', fontSize:16}}>
+              <TableCell
+                align="center"
+                style={{
+                  backgroundColor: "#7E57C2",
+                  color: "white",
+                  fontFamily: "Quicksand",
+                  fontSize: 16,
+                }}
+              >
                 Código
               </TableCell>
-              <TableCell align="center" style={{ backgroundColor: "#7E57C2", color:'white', fontFamily:'Quicksand', fontSize:16 }}>
+              <TableCell
+                align="center"
+                style={{
+                  backgroundColor: "#7E57C2",
+                  color: "white",
+                  fontFamily: "Quicksand",
+                  fontSize: 16,
+                }}
+              >
                 Producto
               </TableCell>
-              <TableCell align="center" style={{ backgroundColor: "#7E57C2", color:'white', fontFamily:'Quicksand', fontSize:16 }}>
+              <TableCell
+                align="center"
+                style={{
+                  backgroundColor: "#7E57C2",
+                  color: "white",
+                  fontFamily: "Quicksand",
+                  fontSize: 16,
+                }}
+              >
                 Descripción
               </TableCell>
-              <TableCell align="center" style={{ backgroundColor: "#7E57C2", color:'white', fontFamily:'Quicksand', fontSize:16 }}>
+              <TableCell
+                align="center"
+                style={{
+                  backgroundColor: "#7E57C2",
+                  color: "white",
+                  fontFamily: "Quicksand",
+                  fontSize: 16,
+                }}
+              >
                 Precio
               </TableCell>
-              <TableCell align="center" style={{ backgroundColor: "#7E57C2", color:'white', fontFamily:'Quicksand', fontSize:16 }}>
+              <TableCell
+                align="center"
+                style={{
+                  backgroundColor: "#7E57C2",
+                  color: "white",
+                  fontFamily: "Quicksand",
+                  fontSize: 16,
+                }}
+              >
                 Categoria
               </TableCell>
-              <TableCell align="center" style={{ backgroundColor: "#7E57C2", color:'white', fontFamily:'Quicksand', fontSize:16 }}>
+              <TableCell
+                align="center"
+                style={{
+                  backgroundColor: "#7E57C2",
+                  color: "white",
+                  fontFamily: "Quicksand",
+                  fontSize: 16,
+                }}
+              >
                 Foto
               </TableCell>
-              <TableCell align="center" style={{ backgroundColor: "#7E57C2", color:'white', fontFamily:'Quicksand', fontSize:16 }}>
+              <TableCell
+                align="center"
+                style={{
+                  backgroundColor: "#7E57C2",
+                  color: "white",
+                  fontFamily: "Quicksand",
+                  fontSize: 16,
+                }}
+              >
                 Control
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {values.map((values) => (
+            {values.filter((value)=>{
+                if(search === "") {
+                    return value
+                }
+                else if (value.nombreProducto?.toString().toLowerCase().includes(search.toLowerCase())){
+                    return value
+                }
+            })
+            .map((values) => (
               <TableRow key={values.id}>
-                <TableCell align="center" style={{fontFamily:'Quicksand', fontSize:14}}># {values.id} </TableCell>
-                <TableCell align="center" style={{fontFamily:'Quicksand', fontSize:14}}>{values.nombreProducto} </TableCell>
-                <TableCell align="center" style={{fontFamily:'Quicksand', fontSize:14}}>{values.descripcion} </TableCell>
-                <TableCell align="center" style={{fontFamily:'Quicksand', fontSize:14}}>$ {values.precio} </TableCell>
-                <TableCell align="center" style={{fontFamily:'Quicksand', fontSize:14}}>
+                <TableCell
+                  align="center"
+                  style={{ fontFamily: "Quicksand", fontSize: 14 }}
+                >
+                  # {values.id}{" "}
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{ fontFamily: "Quicksand", fontSize: 14 }}
+                >
+                  {values.nombreProducto}{" "}
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{ fontFamily: "Quicksand", fontSize: 14 }}
+                >
+                  {values.descripcion}{" "}
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{ fontFamily: "Quicksand", fontSize: 14 }}
+                >
+                  $ {values.precio}{" "}
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{ fontFamily: "Quicksand", fontSize: 14 }}
+                >
                   {values.categoria?.nombre}
                 </TableCell>
                 <TableCell align="center">
-                  <img src={values.foto} width={50} height={50} />
+                  <img src={values.foto} width={150} height={50} />
                 </TableCell>
                 <TableCell align="center">
-                  <Button onClick={() => deleteProductById(values.id)} style={{ backgroundColor: "#6750A4", color: "white", fontFamily:'Quicksand', fontSize:14 }}>
+                  <Button
+                    onClick={() => deleteProductById(values.id)}
+                    style={{
+                      backgroundColor: "#6750A4",
+                      color: "white",
+                      fontFamily: "Quicksand",
+                      fontSize: 14,
+                    }}
+                  >
                     Eliminar
                   </Button>
                 </TableCell>

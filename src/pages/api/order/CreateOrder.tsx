@@ -102,31 +102,6 @@ const CreateOrder = () => {
           color: "white", float: "right", margin:10}}>Close</Button>
         </Box>
       </Modal>
-      {/* <form onSubmit={postOrders}>
-        <label htmlFor="productoId">Código de producto</label>
-        <br />
-        <input
-          type="text"
-          name="ProductoId"
-          id="productoId"
-          value={values.productoId}
-          onChange={handleChange}
-        />
-        <br />
-
-        <label htmlFor="cantidadProducto">Cantidad de productos</label>
-        <br />
-        <input
-          type="text"
-          name="CantidadProducto"
-          id="cantidadProducto"
-          value={values.cantidadProducto}
-          onChange={handleChange}
-        />
-        <br />
-
-        <button type="submit">Agregar</button>
-      </form> */}
     </div>
   );
 };
