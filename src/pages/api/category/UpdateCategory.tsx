@@ -1,14 +1,15 @@
-import CreateCategoryUseCase from "@/application/usecases/categoryUseCase/CreateCategoryUseCase";
+import UpdateCategoryUseCase from "@/application/usecases/categoryUseCase/UpdateCategoryUseCase";
+import GetOneCategoryUseCase from "@/application/usecases/categoryUseCase/GetOneCategoryUseCase";
 import Category from "@/domain/entities/category";
 import CategoryRepo from "@/infrastructure/implementation/httpRequest/axios/CategoryRepo";
 import React, { useState } from "react";
 import {
-  Box,
   Button,
-  Divider,
   Modal,
-  TextField,
+  Box,
   Typography,
+  Divider,
+  TextField,
 } from "@mui/material";
 import { ImageInput } from "@/components/Inputs/ImageInput";
 
@@ -24,12 +25,13 @@ const style = {
   pt: 2,
   px: 4,
   pb: 3,
-  borderRadius: 8,
+  borderRadius: 2,
+  fontFamily: "Quicksand",
 };
 
-const CreateCategory = () => {
+const UpdateCategory = () => {
   const [values, setValues] = useState<Category>({});
-  const [openAdd, setOpenAdd] = useState(false);
+  const [openAdd, setOpenAdd] = React.useState(false);
 
   const handleOpenAdd = () => {
     setOpenAdd(true);
@@ -39,13 +41,24 @@ const CreateCategory = () => {
   };
 
   const categoryRepo = new CategoryRepo();
-  const createCategory = new CreateCategoryUseCase(categoryRepo);
+  const getOneCategory = new GetOneCategoryUseCase(categoryRepo);
+  const updateCategory = new UpdateCategoryUseCase(categoryRepo);
 
-  const postCategory = async (e: any) => {
+  const getCategory = async (id: number = 0) => {
+    try {
+      const foundCategory = await getOneCategory.run(id);
+      setValues(foundCategory);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const updateCategories = async (e: any) => {
     e.preventDefault();
     try {
-      const createdCategory: Category = await createCategory.run(values);
-      console.log(createdCategory);
+      const updatedCategory = await updateCategory.run(values);
+      setValues(updatedCategory);
+      console.log(updatedCategory);
     } catch (e) {
       console.error(e);
     }
@@ -76,9 +89,8 @@ const CreateCategory = () => {
           height: 40
         }}
       >
-        Agregar
+        Actualizar
       </Button>
-
       <Modal
         open={openAdd}
         onClose={handleCloseAdd}
@@ -91,13 +103,48 @@ const CreateCategory = () => {
             component="h2"
             style={{ marginBottom: 10, marginTop: 10 }}
           >
-            Agregar categoría
+            Editar categoría
           </Typography>
           <Divider style={{ borderTop: "1.5px solid #7E57C2" }} />
-          <form onSubmit={postCategory}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <TextField
-              required
-              label="Nombre de la categoría"
+              type="number"
+              label="Código de categoría"
+              name="id"
+              id="outlined-required"
+              variant="standard"
+              color="secondary"
+              onChange={handleChange}
+              style={{ width: 240, marginTop: 10 }}
+            />
+            <Button
+              onClick={() => getCategory(values.id)}
+              style={{
+                backgroundColor: "#6750A4",
+                color: "white",
+                float: "right",
+                marginTop: 20,
+                marginLeft: 25,
+                width: 220,
+              }}
+            >
+              Cargar datos
+            </Button>
+          </Box>
+          <form onSubmit={updateCategories}>
+          <Typography
+              id="modal-modal-title"
+              style={{  color: "#696969", marginTop: 15 }}
+            >
+              Nombre de la categoría *
+            </Typography>
+            <TextField
               name="nombre"
               id="standard-basic"
               size="small"
@@ -105,11 +152,15 @@ const CreateCategory = () => {
               color="secondary"
               onChange={handleChange}
               value={values.nombre}
-              style={{ width: 365, marginTop: 10 }}
+              style={{ width: 365, marginTop: 2 }}
             />
+            <Typography
+              id="modal-modal-title"
+              style={{  color: "#696969", marginTop: 15  }}
+            >
+              Descripción *
+            </Typography>
             <TextField
-              required
-              label="Descripción"
               name="descripcion"
               id="standard-basic"
               size="small"
@@ -117,11 +168,15 @@ const CreateCategory = () => {
               color="secondary"
               onChange={handleChange}
               value={values.descripcion}
-              style={{ width: 365, marginTop: 10 }}
+              style={{ width: 365, marginTop: 2 }}
             />
+            <Typography
+              id="modal-modal-title"
+              style={{  color: "#696969", marginTop: 15  }}
+            >
+              Estado *
+            </Typography>
             <TextField
-              required
-              label="Estado"
               name="estado"
               id="standard-basic"
               size="small"
@@ -129,11 +184,12 @@ const CreateCategory = () => {
               color="secondary"
               onChange={handleChange}
               value={values.estado}
-              style={{ width: 365, marginTop: 10 }}
+              style={{ width: 365, marginTop: 2 }}
             />
+            <br />
             <Typography
               id="modal-modal-title"
-              style={{ marginBottom: 10, color: "#696969", marginTop:20 }}
+              style={{ marginBottom: 10, color: "#696969", marginTop: 15  }}
             >
               Foto *
             </Typography>
@@ -143,7 +199,7 @@ const CreateCategory = () => {
               radius="15px"
             />
             <Button
-              type="submit"
+              onClick={(e) => updateCategories(e)}
               style={{
                 backgroundColor: "#6750A4",
                 color: "white",
@@ -151,7 +207,7 @@ const CreateCategory = () => {
                 marginTop: 15,
               }}
             >
-              Agregar
+              Actualizar
             </Button>
           </form>
         </Box>
@@ -159,4 +215,4 @@ const CreateCategory = () => {
     </>
   );
 };
-export default CreateCategory;
+export default UpdateCategory;

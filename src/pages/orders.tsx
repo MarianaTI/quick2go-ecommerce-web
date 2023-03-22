@@ -15,7 +15,7 @@ function Orders() {
     <>
       <Typography
         sx={{
-          fontSize: 32,
+          fontSize: 42,
           color: "#49454E",
           paddingBottom: 1,
           fontWeight: 600,
@@ -47,9 +47,9 @@ function Orders() {
           </Link>
         </Breadcrumbs>
       </div>
-      <CreateOrder />
+      {/* <CreateOrder /> */}
       <GetAllOrder />
-      <UpdateOrder /> 
+      {/* <UpdateOrder />  */}
     </>
   );
 }

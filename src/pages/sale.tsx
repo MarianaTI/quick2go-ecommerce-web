@@ -1,17 +1,17 @@
-import { Breadcrumbs, Link, Typography } from "@mui/material";
-import CreateProduct from "./api/product/CreateProduct";
-import GetAllProduct from "./api/product/GetAllProduct";
-import GetOneProduct from "./api/product/GetOneProduct";
-import UpdateProduct from "./api/product/UpdateProduct";
+import * as React from 'react';
+import {Typography, Container, Breadcrumbs, Link} from '@mui/material';
+import GetAllSale from './api/sale/GetAllSale';
+
 function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
   event.preventDefault();
   console.info("You clicked a breadcrumb.");
 }
 
-function Productos() {
+function Sale() {
+
   return (
     <>
-    <Typography
+      <Typography
         sx={{
           fontSize: 42,
           color: "#49454E",
@@ -20,14 +20,14 @@ function Productos() {
           fontFamily: "Quicksand",
         }}
       >
-        Productos
+        Ventas
       </Typography>
       <div role="presentation" onClick={handleClick}>
         <Breadcrumbs
           aria-label="breadcrumb"
           sx={{
             fontSize: 16,
-            paddingBottom: 5,
+            paddingBottom: 3,
             fontFamily: "Quicksand",
             fontWeight: 800,
           }}
@@ -41,16 +41,12 @@ function Productos() {
             href="/material-ui/react-breadcrumbs/"
             aria-current="page"
           >
-            Productos
+            Venta
           </Link>
         </Breadcrumbs>
       </div>
-      <UpdateProduct/>
-      <CreateProduct /> 
-      <GetAllProduct />
-      {/* <GetOneProduct /> */}
+      <GetAllSale/>
     </>
   );
 }
-
-export default Productos;
+export default Sale;

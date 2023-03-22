@@ -1,19 +1,17 @@
-import CreateProductUseCase from "@/application/usecases/productUseCase/CreateProductUseCase";
+import UpdateProductUseCase from "@/application/usecases/productUseCase/UpdateProductUseCase";
+import GetOneProductUseCase from "@/application/usecases/productUseCase/GetOneProductUseCase";
 import Product from "@/domain/entities/product";
 import ProductRepo from "@/infrastructure/implementation/httpRequest/axios/ProductRepo";
-import { ImagePreviewInput } from "@/components/Inputs/ImagePreviewInput";
-import React, { SyntheticEvent, useState } from "react";
-import ImageInput from "@/components/Inputs/ImageInput/ImageInput";
+import React, { useState } from "react";
 import {
-  Box,
   Button,
-  Divider,
   Modal,
-  TextField,
+  Box,
   Typography,
+  Divider,
+  TextField,
 } from "@mui/material";
-import { useRouter } from "next/router";
-import { Formik } from "formik";
+import { ImageInput } from "@/components/Inputs/ImageInput";
 
 const style = {
   position: "absolute",
@@ -31,8 +29,7 @@ const style = {
   fontFamily: "Quicksand",
 };
 
-const CreateProduct = () => {
-  //state
+const UpdateProduct = () => {
   const [values, setValues] = useState<Product>({});
   const [openAdd, setOpenAdd] = React.useState(false);
 
@@ -44,41 +41,42 @@ const CreateProduct = () => {
   };
 
   const productRepo = new ProductRepo();
-  const createProduct = new CreateProductUseCase(productRepo);
+  const getOneProduct = new GetOneProductUseCase(productRepo);
+  const updateProduct = new UpdateProductUseCase(productRepo);
 
-    const postProductos = async (e: any) => {
-      //renderizar para evitar que se recargue la pagina
-      e.preventDefault();
-      console.log(e);
-      try {
-        const createdProduct: Product = await createProduct.run(values);
-        console.log(createdProduct);
-        console.log(values);
+  const getProduct = async (id: number = 0) => {
+    try {
+      const foundProduct = await getOneProduct.run(id);
+      setValues(foundProduct);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
-        if (createdProduct.id) {
-          setValues(createdProduct);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-  
+  const updateProducts = async (e: any) => {
+    e.preventDefault();
+    try {
+      const updatedProduct = await updateProduct.run(values);
+      setValues(updatedProduct);
+      console.log(updatedProduct);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
-  //funciones
-  //[] => acceder a las propiedades de un objeto dinamica
   const handleChange = (e: any) => {
-    // destructuracion
     const { name, value } = e.target;
     setValues({
-      //operador de propagacion => acceder a todos los valores
       ...values,
       [name]: value,
     });
   };
+
   const handleUpdateFiles = (pictures: any) =>
     setValues({ ...values, foto: pictures });
+
   return (
-    <div>
+    <>
       <Button
         onClick={handleOpenAdd}
         style={{
@@ -91,7 +89,7 @@ const CreateProduct = () => {
           height: 40,
         }}
       >
-        Agregar
+        Actualizar
       </Button>
       <Modal
         open={openAdd}
@@ -105,13 +103,48 @@ const CreateProduct = () => {
             component="h2"
             style={{ marginBottom: 10, marginTop: 10 }}
           >
-            Agregar producto
+            Editar producto
           </Typography>
           <Divider style={{ borderTop: "1.5px solid #7E57C2" }} />
-          <form onSubmit={postProductos}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <TextField
-              required
-              label="Nombre del producto"
+              type="number"
+              label="Código del producto a editar"
+              name="id"
+              id="outlined-required"
+              variant="standard"
+              color="secondary"
+              onChange={handleChange}
+              style={{ width: 240, marginTop: 10 }}
+            />
+            <Button
+              onClick={() => getProduct(values.id)}
+              style={{
+                backgroundColor: "#6750A4",
+                color: "white",
+                float: "right",
+                marginTop: 20,
+                marginLeft: 25,
+                width: 220,
+              }}
+            >
+              Cargar datos
+            </Button>
+          </Box>
+          <form onSubmit={updateProducts}>
+            <Typography
+              id="modal-modal-title"
+              style={{ color: "#696969", marginTop: 15 }}
+            >
+              Nombre del producto *
+            </Typography>
+            <TextField
               name="nombreProducto"
               id="standard-basic"
               size="small"
@@ -119,12 +152,15 @@ const CreateProduct = () => {
               color="secondary"
               onChange={handleChange}
               value={values.nombreProducto}
-              style={{ width: 365, marginTop: 10 }}
+              style={{ width: 365, marginTop: 2 }}
             />
-            <br />
+            <Typography
+              id="modal-modal-title"
+              style={{ color: "#696969", marginTop: 15 }}
+            >
+              Descripción *
+            </Typography>
             <TextField
-              required
-              label="Descripción"
               name="descripcion"
               id="standard-basic"
               size="small"
@@ -132,9 +168,28 @@ const CreateProduct = () => {
               color="secondary"
               onChange={handleChange}
               value={values.descripcion}
-              style={{ width: 365, marginTop: 10 }}
+              style={{ width: 365, marginTop: 2 }}
             />
-            <br />
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography
+                id="modal-modal-title"
+                style={{ color: "#696969", marginTop: 15, marginRight: -7, float:'left'}}
+              >
+                Código categoría *
+              </Typography>
+              <Typography
+                id="modal-modal-title"
+                style={{ color: "#696969", marginTop: 15, marginLeft: 180  }}
+              >
+                Precio *
+              </Typography>
+            </Box>
             <Box
               sx={{
                 display: "flex",
@@ -143,9 +198,7 @@ const CreateProduct = () => {
               }}
             >
               <TextField
-                required
                 type="number"
-                label="Código categoria"
                 name="categoriaId"
                 id="standard-basic"
                 size="small"
@@ -157,9 +210,7 @@ const CreateProduct = () => {
               />
               <br />
               <TextField
-                required
                 type="number"
-                label="Precio"
                 name="precio"
                 id="outlined-required"
                 variant="standard"
@@ -182,20 +233,20 @@ const CreateProduct = () => {
               radius="15px"
             />
             <Button
-              type="submit"
+              onClick={(e) => updateProducts(e)}
               style={{
                 backgroundColor: "#6750A4",
                 color: "white",
                 height: 30,
-                marginTop: 10,
+                marginTop: 15,
               }}
             >
-              Agregar
+              Actualizar
             </Button>
           </form>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 };
-export default CreateProduct;
+export default UpdateProduct;

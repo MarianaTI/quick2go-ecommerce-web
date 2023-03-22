@@ -1,7 +1,6 @@
-import GetAllOrderUseCase from "@/application/usecases/orderUseCase/GetAllOrderUseCase";
-import DeleteOrderUseCase from "@/application/usecases/orderUseCase/DeleteOrderUseCase";
-import Order from "@/domain/entities/order";
-import OrderRepo from "@/infrastructure/implementation/httpRequest/axios/OrderRepo";
+import GetAllCategoryUseCase from "@/application/usecases/categoryUseCase/GetAllCategoryUseCase";
+import Sale from "@/domain/entities/sale";
+import SaleRepo from "@/infrastructure/implementation/httpRequest/axios/SaleRepo";
 import {
   TableContainer,
   Paper,
@@ -17,35 +16,37 @@ import {
   IconButton,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
+import GetAllSaleUseCase from "@/application/usecases/saleUseCase/GetAllSaleUseCase";
+import DeleteSaleUseCase from "@/application/usecases/saleUseCase/DeleteSaleUseCase";
 
-const GetAllOrder = () => {
-  const [values, setValues] = useState<Order[]>([]);
-  const [deletedOrder, setDeletedOrder] = useState(false);
+const GetAllSale = () => {
+  const [values, setValues] = useState<Sale[]>([]);
   const [search, setSearch] = useState("");
+  const [deletedSell, setDeletedSell] = useState(false);
 
-  const orderRepo = new OrderRepo();
-  const getAllOrder = new GetAllOrderUseCase(orderRepo);
-  const deleteOrder = new DeleteOrderUseCase(orderRepo);
+  const saleRepo = new SaleRepo();
+  const getAllSale = new GetAllSaleUseCase(saleRepo);
+  const deleteSale = new DeleteSaleUseCase(saleRepo);
 
   useEffect(() => {
-    const getAllOrderMethod = async () => {
+    const getAllSaleMethod = async () => {
       try {
-        const allOrder: Order[] = await getAllOrder.run();
-        setValues(allOrder);
-        console.log(allOrder);
+        const allSale: Sale[] = await getAllSale.run();
+        setValues(allSale);
+        console.log(allSale);
       } catch (e) {
         console.error(e);
       }
     };
-    getAllOrderMethod();
-  }, [deletedOrder]);
+    getAllSaleMethod();
+  }, []);
 
-  const deleteOrderById = async (id: number = 0) => {
+  const deleteSaleById = async (id: number = 0) => {
     try {
-      const deletedOrder = await deleteOrder.run(id);
-      setDeletedOrder(true);
-      console.log(deletedOrder);
+      const deletedSale = await deleteSale.run(id);
+      setDeletedSell(true);
+      console.log(deletedSale);
     } catch (e) {
       console.error(e);
     }
@@ -65,7 +66,6 @@ const GetAllOrder = () => {
         <SearchIcon />
       </IconButton>
     </Box>
-    
       <TableContainer
         component={Paper}
         sx={{
@@ -89,7 +89,6 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                
                 Código
               </TableCell>
               <TableCell
@@ -101,8 +100,7 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                
-                Productos
+                Código de pedido
               </TableCell>
               <TableCell
                 align="center"
@@ -113,8 +111,7 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                
-                Cantidad
+                Dirección
               </TableCell>
               <TableCell
                 align="center"
@@ -125,8 +122,7 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                
-                Subtotal
+                Total de pago
               </TableCell>
               <TableCell
                 align="center"
@@ -137,7 +133,17 @@ const GetAllOrder = () => {
                   fontSize: 16,
                 }}
               >
-                
+                Pedido
+              </TableCell>
+              <TableCell
+                align="center"
+                style={{
+                  backgroundColor: "#7E57C2",
+                  color: "white",
+                  fontFamily: "Quicksand",
+                  fontSize: 16,
+                }}
+              >
                 Control
               </TableCell>
             </TableRow>
@@ -163,26 +169,32 @@ const GetAllOrder = () => {
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
-                {values.producto?.nombreProducto}
+                  # {values.pedidoId}
                 </TableCell>
                 <TableCell
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
-                  # {values.cantidadProducto} 
+                  {values.direccion}
                 </TableCell>
                 <TableCell
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
-                  $ {values.subTotal}
+                  $ {values.totalPago}
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{ fontFamily: "Quicksand", fontSize: 14 }}
+                >
+                  {values.pedido?.producto?.nombreProducto}
                 </TableCell>
                 <TableCell
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
                   <Button
-                    onClick={() => deleteOrderById(values.id)}
+                    onClick={() => deleteSaleById(values.id)}
                     style={{
                       backgroundColor: "#6750A4",
                       color: "white",
@@ -202,4 +214,4 @@ const GetAllOrder = () => {
     </>
   );
 };
-export default GetAllOrder;
+export default GetAllSale;

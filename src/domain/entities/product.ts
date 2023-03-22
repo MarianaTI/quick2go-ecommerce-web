@@ -5,6 +5,7 @@ interface Product{
     id?: number,
     nombreProducto?: string,
     descripcion?: string,
+    categoriaId?: number,
     precio?: number,
     categoria?: Category;
     foto?: any
