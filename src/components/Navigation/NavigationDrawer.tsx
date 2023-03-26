@@ -234,7 +234,7 @@ export default function NavigationDrawer() {
                 />
               </ListItemOption>
             </ListItem>
-            <ListItem
+            {/* <ListItem
               disablePadding
               sx={{ display: "block", paddingBottom: 2 }}
               onClick={() => setMenudata("Categoría")}
@@ -265,7 +265,7 @@ export default function NavigationDrawer() {
                   }}
                 />
               </ListItemOption>
-            </ListItem>
+            </ListItem> */}
             <ListItem
               disablePadding
               sx={{ display: "block", paddingBottom: 2 }}
