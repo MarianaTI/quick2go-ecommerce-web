@@ -9,8 +9,8 @@ import LoginPage from './api/account/CreateAccount'
 export default function Home() {
   return (
     <div>
-      <NavigationDrawer/>
-      {/* <LoginPage/> */}
+      {/* <NavigationDrawer/> */}
+      <LoginPage/>
     </div>
   )
 }
