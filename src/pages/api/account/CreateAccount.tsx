@@ -5,7 +5,6 @@ import { useState } from 'react';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = async (e:any) => {
@@ -15,11 +14,9 @@ export default function LoginPage() {
     const account = {
       email: email,
       password: password,
-      token: token
     };
     try {
       const response = await createAccountUseCase.run(account);
-      localStorage.setItem('token', response.token);
       // Aquí podrías almacenar la información de la cuenta de usuario en el estado de tu componente o en una cookie
     } catch (error) {
       setError('Las credenciales que has introducido son incorrectas. Por favor, inténtalo de nuevo.');
