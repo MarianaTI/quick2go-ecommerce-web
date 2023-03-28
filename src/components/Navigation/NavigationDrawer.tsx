@@ -19,6 +19,9 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import Productos from "@/pages/productos";
 import Orders from "@/pages/orders";
 import Categories from "@/pages/category";
+import MovingIcon from "@mui/icons-material/Moving";
+import MoreIcon from '@mui/icons-material/MoreVert';
+import Venta from "@/pages/sale";
 import Home from "@/pages";
 import {
   Category,
@@ -28,7 +31,7 @@ import {
   Help,
   StarBorder,
 } from "@mui/icons-material";
-import { Collapse } from "@mui/material";
+import { Collapse, IconButton } from "@mui/material";
 
 const drawerWidth = 240;
 const contentWidth = 800;
@@ -49,7 +52,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const ListItemOption = styled(ListItemButton)(({ theme }) => ({
   "&:hover": {
-    backgroundColor: "rgba(127, 104, 166, 0.2)"
+    backgroundColor: "rgba(127, 104, 166, 0.2)",
   },
 }));
 
@@ -104,7 +107,29 @@ export default function NavigationDrawer() {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed">
-        <Toolbar></Toolbar>
+        <Toolbar>
+          
+          <Box sx={{ display: "inline-flex", alignItems: "center" }}>
+            {/* <LocalGroceryStoreIcon sx={{ color: "black", marginTop:3, marginLeft: 5, marginBottom:5 }} /> */}
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              fontFamily="Paytone One"
+              sx={{
+                fontSize: 22,
+                color: "white",
+                fontWeight: 600,
+                marginLeft: 4,
+                marginBottom: 2,
+                marginTop: 1,
+              }}
+            >
+              Quick2Go
+            </Typography>
+          </Box>
+          
+        </Toolbar>
       </AppBar>
       <Box
         component="nav"
@@ -115,28 +140,6 @@ export default function NavigationDrawer() {
           <DrawerHeader></DrawerHeader>
           <Divider />
           <List>
-            <Box sx={{ display: "inline-flex", alignItems: "center" }}>
-              {/* <LocalGroceryStoreIcon sx={{ color: "black", marginTop:3, marginLeft: 5, marginBottom:5 }} /> */}
-              <Typography
-                variant="h6"
-                noWrap
-                component="div"
-                fontFamily="Paytone One"
-                sx={{
-                  fontSize: 22,
-                  color: "#49454E",
-                  fontWeight: 600,
-                  marginLeft: 7,
-                  marginBottom: 2,
-                  marginTop: 1,
-                }}
-              >
-                Quick2Go
-              </Typography>
-            </Box>
-            <Divider
-              sx={{ width: 200, marginLeft: 2, borderTop: "2px solid #7E57C2" }}
-            />
             <ListItem
               disablePadding
               sx={{ display: "block", paddingBottom: 4, paddingTop: 2 }}
@@ -231,7 +234,7 @@ export default function NavigationDrawer() {
                 />
               </ListItemOption>
             </ListItem>
-            <ListItem
+            {/* <ListItem
               disablePadding
               sx={{ display: "block", paddingBottom: 2 }}
               onClick={() => setMenudata("Categoría")}
@@ -262,15 +265,15 @@ export default function NavigationDrawer() {
                   }}
                 />
               </ListItemOption>
-            </ListItem>
+            </ListItem> */}
             <ListItem
               disablePadding
               sx={{ display: "block", paddingBottom: 2 }}
-              onClick={() => setMenudata("Categoría")}
+              onClick={() => setMenudata("Venta")}
             >
               <ListItemOption>
                 <ListItemIcon>
-                  <Category
+                  <MovingIcon
                     sx={{
                       width: 22,
                       height: 22,
@@ -378,6 +381,7 @@ export default function NavigationDrawer() {
         {menudata == "Productos" && <Productos />}
         {menudata == "Pedidos" && <Orders />}
         {menudata == "Categoría" && <Categories />}
+        {menudata == "Venta" && <Venta />}
       </Box>
     </Box>
   );

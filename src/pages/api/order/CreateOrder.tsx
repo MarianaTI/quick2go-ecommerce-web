@@ -1,24 +1,25 @@
 import CreateOrderUseCase from "@/application/usecases/orderUseCase/CreateOrderUserCase";
+import { ImageInput } from "@/components/Inputs/ImageInput";
 import Order from "@/domain/entities/order";
 import OrderRepo from "@/infrastructure/implementation/httpRequest/axios/OrderRepo";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 
 const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 370,
-    bgcolor: "background.paper",
-    border: "none",
-    boxShadow: 10,
-    pt: 2,
-    px: 4,
-    pb: 3,
-    borderRadius:8
-  };
-  
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 430,
+  bgcolor: "background.paper",
+  border: "none",
+  boxShadow: 10,
+  pt: 2,
+  px: 4,
+  pb: 3,
+  borderRadius: 2,
+  fontFamily: "Quicksand",
+};
 
 const CreateOrder = () => {
   const [openAdd, setOpenAdd] = React.useState(false);
@@ -52,6 +53,8 @@ const CreateOrder = () => {
     });
   };
 
+  
+
   return (
     <div>
       <Button
@@ -62,12 +65,11 @@ const CreateOrder = () => {
           float: "right",
           marginBottom: 15,
           padding: 10,
-          marginRight: 25
+          marginRight: 25,
         }}
       >
         Agregar
       </Button>
-
 
       <Modal
         open={openAdd}
@@ -76,14 +78,19 @@ const CreateOrder = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2" style={{marginBottom:20, marginTop:10}}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            style={{ marginBottom: 20, marginTop: 10 }}
+          >
             Agregar pedido
           </Typography>
           <TextField
             label="Código de producto"
             name="productoId"
             onChange={handleChange}
-            style={{width:300, marginBottom:20}}
+            style={{ width: 300, marginBottom: 20 }}
             color="secondary"
           />
           <br />
@@ -91,15 +98,34 @@ const CreateOrder = () => {
             label="Cantidad de productos"
             name="cantidadProducto"
             onChange={handleChange}
-            style={{width:300}}
+            style={{ width: 300 }}
             color="secondary"
           />
           <br />
           <br />
-          <Button onClick={(e) => postOrders(e)} style={{backgroundColor: "#6750A4",
-          color: "white", margin: 10, float: "right"}}>Agregar</Button>
-          <Button onClick={handleCloseAdd} style={{backgroundColor: "#6750A4",
-          color: "white", float: "right", margin:10}}>Close</Button>
+          <Button
+            onClick={(e) => postOrders(e)}
+            style={{
+              backgroundColor: "#6750A4",
+              color: "white",
+              margin: 10,
+              float: "right",
+            }}
+          >
+            Agregar
+          </Button>
+          <Button
+            onClick={handleCloseAdd}
+            style={{
+              backgroundColor: "#6750A4",
+              color: "white",
+              float: "right",
+              margin: 10,
+            }}
+          >
+            Close
+          </Button>
+          
         </Box>
       </Modal>
     </div>
@@ -107,9 +133,8 @@ const CreateOrder = () => {
 };
 export default CreateOrder;
 
-
-
-      {/* <Formik initialValues={values} onSubmit={postOrders}>
+{
+  /* <Formik initialValues={values} onSubmit={postOrders}>
             {({
               values,
               setValues,
@@ -139,4 +164,5 @@ export default CreateOrder;
                     <button type="submit">Agregar</button>
                 </form>
             )}
-            </Formik> */}
+            </Formik> */
+}

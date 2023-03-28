@@ -8,8 +8,13 @@ import { NavigationDrawer } from '@/components/Navigation'
 export default function Home() {
   return (
     <div>
+<<<<<<< HEAD
       <NavigationDrawer/>
       {/* <Login/> */}
+=======
+      {/* <NavigationDrawer/> */}
+      <LoginPage/>
+>>>>>>> 160cbee525b7eebdf85170e18d349842ece544e0
     </div>
   )
 }

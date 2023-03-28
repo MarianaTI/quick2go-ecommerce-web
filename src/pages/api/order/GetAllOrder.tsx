@@ -11,8 +11,13 @@ import {
   TableCell,
   TableBody,
   Button,
+  Box,
+  Input,
+  InputBase,
+  IconButton,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import SearchIcon from '@mui/icons-material/Search';
 
 const GetAllOrder = () => {
   const [values, setValues] = useState<Order[]>([]);
@@ -48,7 +53,19 @@ const GetAllOrder = () => {
 
   return (
     <>
-    <input type="text" placeholder="search" onChange={(e) =>setSearch(e.target.value)} />
+    <Box marginLeft={128} marginBottom={3}>
+    <InputBase
+        sx={{ ml: 1, flex: 1}}
+        style={{color:'inherit'}}
+        placeholder="Search"
+        inputProps={{ 'aria-label': 'search google maps' }}
+        onChange={(e) =>setSearch(e.target.value)}
+      />
+      <IconButton type="button" sx={{ p: '10px', color: 'inherit' }} aria-label="search">
+        <SearchIcon />
+      </IconButton>
+    </Box>
+    
       <TableContainer
         component={Paper}
         sx={{
@@ -164,17 +181,6 @@ const GetAllOrder = () => {
                   align="center"
                   style={{ fontFamily: "Quicksand", fontSize: 14 }}
                 >
-                  {/* <Button
-                    onClick={() => handleEditClick(values)}
-                    style={{
-                      backgroundColor: "#6750A4",
-                      color: "white",
-                      fontFamily: "Quicksand",
-                      fontSize: 14,
-                    }}
-                  >
-                    Editar
-                  </Button> */}
                   <Button
                     onClick={() => deleteOrderById(values.id)}
                     style={{
