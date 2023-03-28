@@ -43,16 +43,9 @@ const theme = createTheme({
 
 
 export default function LoginPage() {
-<<<<<<< HEAD
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-=======
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
   const [error, setError] = useState("");
->>>>>>> 160cbee525b7eebdf85170e18d349842ece544e0
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -61,18 +54,11 @@ export default function LoginPage() {
     const account = {
       email: email,
       password: password,
-<<<<<<< HEAD
+
     };
     try {
       const response = await createAccountUseCase.run(account);
-=======
-      token: token,
-    };
-    try {
-      const response = await createAccountUseCase.run(account);
-      localStorage.setItem("token", response.token);
       console.log(response);
->>>>>>> 160cbee525b7eebdf85170e18d349842ece544e0
       // Aquí podrías almacenar la información de la cuenta de usuario en el estado de tu componente o en una cookie
     } catch (error) {
       setError(
