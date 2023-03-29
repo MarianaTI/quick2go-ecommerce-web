@@ -1,4 +1,5 @@
 import Product from "@/domain/entities/product";
+import Response from "@/domain/entities/response";
 import IProductRepo from "@/domain/repositories/IProductRepo";
 
 class GetAllProductUseCase {
@@ -6,8 +7,8 @@ class GetAllProductUseCase {
     constructor (productRepo:IProductRepo){
         this.productRepo = productRepo;
     }
-    async run():Promise<Product[]>{
-        const gotProduct:Product[] = await this.productRepo.getall();
+    async run():Promise<Response<Product[]>>{
+        const gotProduct:Response<Product[]> = await this.productRepo.getall();
         return gotProduct;
     }
 }

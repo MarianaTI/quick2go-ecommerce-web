@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AppState } from './store';
 
 interface SessionState{
     token: string;
@@ -18,4 +19,5 @@ export const sessionSlice = createSlice({
   });
 
   export const {login, logout } = sessionSlice.actions;
+  export const selectSession = (state:AppState) => state.session;
   export default sessionSlice.reducer;

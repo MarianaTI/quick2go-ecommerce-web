@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import { ProtectedRoutes } from "@/components/Security/ProtectedRoutes";
 
 const GetAllProduct = () => {
   const [values, setValues] = useState<Product[]>([]);
@@ -31,8 +32,10 @@ const GetAllProduct = () => {
   useEffect(() => {
     const getAllProductMethod = async () => {
       try {
-        const allProduct: Product[] = await getAllProduct.run();
-        setValues(allProduct);
+        const {data: allProduct,status} = await getAllProduct.run();
+          if (status === 200 && allProduct) {
+            setValues(allProduct)
+          }
         console.log(allProduct);
       } catch (e) {
         console.error(e);
@@ -52,8 +55,8 @@ const GetAllProduct = () => {
   };
 
   return (
-    <>
-      <InputBase
+    <ProtectedRoutes redirectTo='/login'>
+    <InputBase
         sx={{ ml: 1, flex: 1 }}
         style={{ color: "inherit" }}
         placeholder="Search"
@@ -228,8 +231,8 @@ const GetAllProduct = () => {
               ))}
           </TableBody>
         </Table>
-      </TableContainer>
-    </>
+      </TableContainer> 
+    </ProtectedRoutes>
   );
 };
 export default GetAllProduct;

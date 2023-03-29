@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Typography, Container, Breadcrumbs, Link} from '@mui/material';
-import GetAllSale from './api/sale/GetAllSale';
+import GetAllSale from './sale/GetAllSale';
 
 function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
   event.preventDefault();

@@ -1,5 +1,9 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import sessionReducer from ".//sessionslice";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+import sessionReducer from "./sessionslice";
+
 export function makeStore() {
     return configureStore({
         reducer: {

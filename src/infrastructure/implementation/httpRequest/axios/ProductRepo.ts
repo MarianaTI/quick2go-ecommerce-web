@@ -1,4 +1,5 @@
 import Product from "@/domain/entities/product";
+import Response from "@/domain/entities/response";
 import IProductRepo from "@/domain/repositories/IProductRepo";
 import axios from "axios";
 import { useState } from "react";
@@ -10,36 +11,37 @@ class ProductRepo implements IProductRepo{
     }
     
     //GET ALL PRODUCT
-    async getall(): Promise<Product[]> {
+    async getall(): Promise<Response<Product[]>> {
         const response = await axios.get<Product[]>(this.url);
-        return response.data;
+        return response;
     }
     //GET ONE => Id
-    async getOne(id: number): Promise<Product> {
+    async getOne(id: number): Promise<Response<Product>> {
         const response = await axios.get<Product>(this.url+id);
-        return response.data;
+        return response;
     }
-    async create(product: Product): Promise<Product> {
+    async create(product: Product, token:string): Promise<Response<Product>> {
         const response = await axios.post<Product>(this.url, product, {
             headers:{
+                Authorization: 'Bearer' + token, 
                 'Content-Type': 'multipart/form-data', Accept: "*/*"
             }
         });
-        return response.data;
+        return response;
     }
-    async update(product: Product): Promise<Product> {
+    async update(product: Product): Promise<Response<Product>> {
         const response = await axios.put<Product>(this.url+product.id, product,{
             headers:{
                 'Content-Type': 'multipart/form-data'
             }
         });
         
-        return response.data;
+        return response;
         
     }
-    async delete(id: number): Promise<Product> {
+    async delete(id: number): Promise<Response<Product>> {
         const response = await axios.delete<Product>(this.url+id);
-        return response.data;
+        return response;
     }
 
 }

@@ -8,6 +8,6 @@ interface Product{
     categoriaId?: number,
     precio?: number,
     categoria?: Category;
-    foto?: any
+    foto?: any,
 }
 export default Product;
