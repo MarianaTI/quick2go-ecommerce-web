@@ -4,7 +4,6 @@
 // import Productos from '@/pages/productos'
 // import Orders from '@/pages/orders'
 import { NavigationDrawer } from '@/components/Navigation'
-import LoginPage from './login/loginPage'
 
 export default function Home() {
   return (

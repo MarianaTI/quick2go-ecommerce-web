@@ -1,4 +1,5 @@
 import GetOneOrderUseCase from "@/application/usecases/orderUseCase/GetOneOrderUseCase";
+import GetOneProductUseCase from "@/application/usecases/productUseCase/GetOneProductUseCase";
 import Product from "@/domain/entities/product";
 import ProductRepo from "@/infrastructure/implementation/httpRequest/axios/ProductRepo";
 import React, {useState} from "react";
@@ -8,12 +9,16 @@ const GetOneProduct = () => {
     const [productId, setProductId] = useState<number>(0);
 
     const productRepo = new ProductRepo();
-    const getOneProduct = new GetOneOrderUseCase(productRepo);
+    const getOneProduct = new GetOneProductUseCase(productRepo);
 
     const oneProduct = async () => {
         try {
-            const gotOneProduct = await getOneProduct.run(productId);
+            const response = await (await getOneProduct.run(productId));
+            const gotOneProduct = response.data;
+            if (gotOneProduct) {
             setValues(gotOneProduct);
+                console.log(gotOneProduct);
+            }
             console.log(gotOneProduct);
         } catch (e) {
             console.error(e);  

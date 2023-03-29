@@ -1,4 +1,8 @@
+import GetAllProductUseCase from "@/application/usecases/productUseCase/GetAllProductUseCase";
+import Product from "@/domain/entities/product";
+import ProductRepo from "@/infrastructure/implementation/httpRequest/axios/ProductRepo";
 import { Breadcrumbs, Link, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import CreateProduct from "./product/CreateProduct";
 import GetAllProduct from "./product/GetAllProduct";
 import GetOneProduct from "./product/GetOneProduct";
@@ -9,6 +13,26 @@ function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
 }
 
 function Productos() {
+
+  const [values, setValues] = useState<Product[]>([]);
+  const productRepo = new ProductRepo();
+  const getAllProduct = new GetAllProductUseCase(productRepo);
+
+  useEffect(() => {
+    const getAllProductMethod = async () => {
+      try {
+        const {data: allProduct,status} = await getAllProduct.run();
+          if (status === 200 && allProduct) {
+            setValues(allProduct)
+          }
+        console.log(allProduct);
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    getAllProductMethod();
+  }, []);
+
   return (
     <>
     <Typography
@@ -45,10 +69,10 @@ function Productos() {
           </Link>
         </Breadcrumbs>
       </div>
-      <UpdateProduct/>
-      <CreateProduct /> 
-      <GetAllProduct />
-      {/* <GetOneProduct /> */}
+      <UpdateProduct />
+      <CreateProduct setProduct={setValues}/> 
+      <GetAllProduct values={values} setValues={setValues} />
+      <GetOneProduct />
     </>
   );
 }

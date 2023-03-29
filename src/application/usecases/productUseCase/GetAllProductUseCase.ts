@@ -8,8 +8,8 @@ class GetAllProductUseCase {
         this.productRepo = productRepo;
     }
     async run():Promise<Response<Product[]>>{
-        const gotProduct:Response<Product[]> = await this.productRepo.getall();
-        return gotProduct;
+        const getProduct:Response<Product[]> = await this.productRepo.getall();
+        return getProduct;
     }
 }
 export default GetAllProductUseCase;

@@ -18,6 +18,8 @@ import { useSelector } from "react-redux";
 import { selectSession } from "@/feacture/sessionslice";
 import { stat } from "fs";
 import { ProtectedRoutes } from "@/components/Security/ProtectedRoutes";
+import GetAllProduct from "./GetAllProduct";
+import GetAllProductUseCase from "@/application/usecases/productUseCase/GetAllProductUseCase";
 
 const style = {
   position: "absolute",
@@ -35,7 +37,11 @@ const style = {
   fontFamily: "Quicksand",
 };
 
-const CreateProduct = () => {
+interface createProductProps{
+  setProduct: Function
+}
+
+const CreateProduct: React.FC<createProductProps> = ({setProduct}) => {
   //state
   const [values, setValues] = useState<Product>({});
   const [openAdd, setOpenAdd] = useState(false);
@@ -54,6 +60,7 @@ const CreateProduct = () => {
 
   const productRepo = new ProductRepo();
   const createProduct = new CreateProductUseCase(productRepo);
+  const getAllProduct = new GetAllProductUseCase(productRepo);
 
   const postProductos = async (e: any) => {
     //renderizar para evitar que se recargue la pagina
@@ -61,12 +68,14 @@ const CreateProduct = () => {
     console.log(e);
     try {
       const { data, status } = await createProduct.run(values, session.token);
-      console.log(data);
-      console.log(values);
-
-
+            
       if (status === 200 && data) {
-        setValues(data);
+        
+        const {data, status} = await getAllProduct.run();
+        if (status === 200 && data) {
+          setProduct(data);
+
+        }
       }
     } catch (err) {
       console.error(err);

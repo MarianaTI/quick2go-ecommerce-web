@@ -21,28 +21,18 @@ import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { ProtectedRoutes } from "@/components/Security/ProtectedRoutes";
 
-const GetAllProduct = () => {
-  const [values, setValues] = useState<Product[]>([]);
+interface getAllProductProps{
+  values: Product[];
+  setValues: Function
+}
+const GetAllProduct: React.FC<getAllProductProps> = ({values, setValues}) => {
   const [search, setSearch] = useState("");
 
   const productRepo = new ProductRepo();
   const getAllProduct = new GetAllProductUseCase(productRepo);
   const deleteProduct = new DeleteProductUseCase(productRepo);
 
-  useEffect(() => {
-    const getAllProductMethod = async () => {
-      try {
-        const {data: allProduct,status} = await getAllProduct.run();
-          if (status === 200 && allProduct) {
-            setValues(allProduct)
-          }
-        console.log(allProduct);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    getAllProductMethod();
-  }, []);
+  
 
   const deleteProductById = async (id: number = 0) => {
     try {

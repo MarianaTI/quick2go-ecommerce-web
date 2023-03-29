@@ -46,8 +46,11 @@ const UpdateProduct = () => {
 
   const getProduct = async (id: number = 0) => {
     try {
-      const foundProduct = await getOneProduct.run(id);
-      setValues(foundProduct);
+      const response = await (await getOneProduct.run(id));
+      const gotOneProduct = response.data;
+      if (gotOneProduct) {
+        setValues(gotOneProduct);
+      }
     } catch (e) {
       console.error(e);
     }
@@ -56,9 +59,12 @@ const UpdateProduct = () => {
   const updateProducts = async (e: any) => {
     e.preventDefault();
     try {
-      const updatedProduct = await updateProduct.run(values);
-      setValues(updatedProduct);
-      console.log(updatedProduct);
+      const response = await updateProduct.run(values);
+      const updatedProduct = response.data;
+      if (updatedProduct) {
+        setValues(updatedProduct);
+        console.log(updatedProduct);
+      }
     } catch (e) {
       console.error(e);
     }

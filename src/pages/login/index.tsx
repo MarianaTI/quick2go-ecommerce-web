@@ -34,7 +34,7 @@ const LoginPage = () => {
             if (response.status === 200) {
                 const token = response.data.token;
                 dispatch(login(token));
-                router.push('/home')
+                router.push('/indexPage')
             }
         } catch (error) {
             console.log(error);

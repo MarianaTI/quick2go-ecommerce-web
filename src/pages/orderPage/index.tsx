@@ -1,8 +1,8 @@
 import { Breadcrumbs, Link, Typography } from "@mui/material";
-import CreateOrder from "./order/CreateOrder";
-import GetAllOrder from "./order/GetAllOrder";
-import GetOneOrder from "./order/GetOneOrder";
-import UpdateOrder from "./order/UpdateOrder";
+import CreateOrder from "../order/CreateOrder";
+import GetAllOrder from "../order/GetAllOrder";
+import GetOneOrder from "../order/GetOneOrder";
+import UpdateOrder from "../order/UpdateOrder";
 
 function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
   event.preventDefault();
