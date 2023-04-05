@@ -1,0 +1,97 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    transition: .3s ease;
+  }
+  body{
+    background: #fff9ff;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+  }
+  html{
+    font-size: 90%;
+  }
+  ::-webkit-scrollbar{
+    display: none;
+  }
+  
+  .container{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFF9FF;
+    overflow: hidden;
+    border-radius: 1rem;
+    box-shadow: 1px 0px 4px #bdbdbd;
+  }
+
+  .view{
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 80vw;
+    height: 100vh;
+    margin-left: 16%;
+    top: 0;
+  }
+
+  .cardSection{
+    gap: 1rem;
+  }
+  .right{
+    position: relative;
+    flex-basis: 70%;
+    height: 300px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+
+  }
+  .video{
+
+  }
+  video{
+    width: 80%;
+    object-fit: cover;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10%;
+    padding: 1rem;
+    border-radius: 18px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  h1, p{
+    z-index: 100%;
+  }
+  .text{
+    font-size: 30px;
+    color: #373739;
+    font-weight: 800;
+    z-index: 100;
+    
+  }
+  p{
+    font-size: 15px;
+    color: #373739;
+    font-weight: 500;
+    padding: 1rem;
+  }
+  .text2{
+    padding: 1rem;
+    font-size: 20px;
+    color: #373739;
+    font-weight: 500;
+  }

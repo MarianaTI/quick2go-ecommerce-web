@@ -1,14 +1,15 @@
 import Sale from "../entities/sale";
+import Response from "../entities/response";
 
 interface ISaleRepo{
-    getall(): Promise<Sale[]>;
+    getall(): Promise<Response<Sale[]>>;
 
-    getOne(id:number): Promise<Sale>;
+    getOne(id:number): Promise<Response<Sale>>;
 
-    create(sale:Sale): Promise<Sale>;
+    create(sale:Sale): Promise<Response<Sale>>;
 
-    update(sale:Sale): Promise<Sale>;
+    update(sale:Sale): Promise<Response<Sale>>;
     
-    delete(id:number): Promise<Sale>;
+    delete(id:number): Promise<Response<Sale>>;
 }
 export default ISaleRepo;

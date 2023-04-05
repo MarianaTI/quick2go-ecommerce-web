@@ -226,7 +226,7 @@ export const ImageProfileInputStyles = styled.div`
       bottom: 15px;
       right: -15px;
       box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, .5);
-      padding: 4px 6px;
+      padding: 0px 2px;
       background: #7e57c2;
       color: #fff;
       font-size: 14px;

@@ -1,14 +1,15 @@
 import Order from "../entities/order";
+import Response from '../entities/response';
 
 interface IOrderRepo{
-    getall(): Promise<Order[]>;
+    getall(): Promise<Response<Order[]>>;
 
-    getOne(id:number): Promise<Order>;
+    getOne(id:number): Promise<Response<Order>>;
 
-    create(order:Order): Promise<Order>;
+    create(order:Order): Promise<Response<Order>>;
 
-    update(order:Order): Promise<Order>;
+    update(order:Order): Promise<Response<Order>>;
     
-    delete(id:number): Promise<Order>;
+    delete(id:number): Promise<Response<Order>>;
 }
 export default IOrderRepo;

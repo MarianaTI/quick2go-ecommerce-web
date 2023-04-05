@@ -16,13 +16,13 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import Productos from "@/pages/productos";
-import Orders from "@/pages/orderPage";
+import Productos from "@/pages/products";
+import Orders from "@/pages/orders";
 import Categories from "@/pages/category";
 import MovingIcon from "@mui/icons-material/Moving";
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Venta from "@/pages/sale";
-import Home from "@/pages/indexPage/index";
+
 import {
   Category,
   ExitToApp,
