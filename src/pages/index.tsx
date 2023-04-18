@@ -9,8 +9,7 @@ import Container from "../pages/container/index";
 export default function Home() {
   return (
     <div className="container">
-      <Container />
-      <SideNavigation />
+
     </div>
   );
 }

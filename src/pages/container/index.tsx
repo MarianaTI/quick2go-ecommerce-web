@@ -1,20 +1,28 @@
-import { Box } from "@mui/system";
-import React from "react";
-import Activity from "./activity/activity";
-import Top from "./top";
-import { Bottom, MainContent } from "./style";
-import Products from "../products/index"
+import React, { useEffect } from 'react';
+import L from 'leaflet';
 
+const Mapa = () => {
+  useEffect(() => {
+    const map = L.map('map').setView([51.505, -0.09], 13);
 
-const Container = () => {
-  return (
-    <>
-      <MainContent>
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+      maxZoom: 18,
+    }).addTo(map);
 
-          <Activity />
-      </MainContent>
-    </>
-  );
+    const address = '1600 Pennsylvania Avenue NW, Washington, DC 20500, USA';
+
+    fetch(`https://nominatim.openstreetmap.org/search?q=${address}&format=json`)
+      .then((response) => response.json())
+      .then((data) => {
+        const { lat, lon } = data[0];
+
+        const marker = L.marker([lat, lon]).addTo(map);
+        marker.bindPopup(address).openPopup();
+      });
+  }, []);
+
+  return <div id="map" style={{ height: '400px' }} />;
 };
 
-export default Container;
+export default Mapa;

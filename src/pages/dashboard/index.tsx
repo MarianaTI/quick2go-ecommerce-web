@@ -1,67 +1,102 @@
-
 import GetAllOrderUseCase from "@/application/usecases/orderUseCase/GetAllOrderUseCase";
 import Order from "@/domain/entities/order";
 import OrderRepo from "@/infrastructure/implementation/httpRequest/axios/OrderRepo";
-import { Breadcrumbs, Link, Typography, styled } from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import GetAllOrder from "../orderCrud/GetAllOrder";
-function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-  event.preventDefault();
-  console.info("You clicked a breadcrumb.");
-}
-export const Welcome = styled(Typography)`
-&& {
-    font-weight: 700;
-    font-size: 40px;
-    color: #373739;
-    font-family: "Poppins";
-}
-`;
-export const Text = styled(Typography)`
-&& {
-    font-weight: 500;
-    font-size: 14px;
-    color: #7A797E;
-    font-family: "Poppins";
-    margin-bottom:20px;
-}
-`;
+import GetAllOrder from "../CRUDS/orderCrud/GetAllOrder";
+import Layout from "../layout";
+import {
+  Text,
+  Welcome,
+  Header,
+  CardSection,
+  RightCard,
+  VideoDiv,
+  LeftCard,
+  TextInfo,
+  TextContext,
+  MapsText,
+  WelcomeText,
+} from "./style";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import GoogleMaps from "@/components/Mapa/GoogleMaps";
+import GetAllSale from "../CRUDS/saleCrud/GetAllSale";
+import SaleRepo from "@/infrastructure/implementation/httpRequest/axios/SaleRepo";
+import GetAllSaleUseCase from "@/application/usecases/saleUseCase/GetAllSaleUseCase";
+import Sale from "../sale";
+import SaleDashboard from "../CRUDS/saleCrud/SaleDashboard";
+import { DateCalendar } from "@mui/x-date-pickers";
 
 const Dashboard = () => {
-  const [values, setValues] = useState<Order[]>([]);
-  const orderRepo = new OrderRepo();
-  const getAllOrder = new GetAllOrderUseCase(orderRepo);
+  const [values, setValues] = useState<Sale[]>([]);
 
-  useEffect (() => {
-    const GetAllOrderMethod = async () => {
+  const saleRepo = new SaleRepo();
+  const getAllSale = new GetAllSaleUseCase(saleRepo);
+
+  useEffect(() => {
+    const getAllSaleMethod = async () => {
       try {
-        const {data: allOrder, status} = await getAllOrder.run();
-        if (status === 200 && allOrder) {
-          setValues(allOrder)
+        const { data: allSale, status } = await getAllSale.run();
+        if (status === 200 && allSale) {
+          setValues(allSale);
         }
-        console.log(allOrder);
+        console.log(allSale);
       } catch (e) {
         console.error(e);
       }
     };
-    GetAllOrderMethod();
+    getAllSaleMethod();
   }, []);
-  return (
-    <div className="view">
-      <div >
-        <div>
-          <h1 className="text">Administra todos tus productos y ventas desde aquí</h1>
-          <p className="text2">Bienvenido de nuevo!</p>
-          {/* <video src="./fruta.mp4" height={200} autoPlay loop muted></video> */}
-      <GetAllOrder values={values} setValues={setValues} />
-         
-        </div>
-      </div>
-      
-      {/* <CreateOrder /> */}
-      {/* <UpdateOrder />  */}
-    </div>
 
+  return (
+    <Layout>
+      {/* <Box sx={{background: "grey", margin: "1%", borderRadius: "10px"}}> */}
+      <Header>
+        <Welcome>Bienvenido de nuevo</Welcome>
+        <Text>Hola ...! Gracias por estar de vuelta</Text>
+      </Header>
+      <CardSection>
+        <RightCard>
+          <TextInfo>Crea y vende extraordinarios productos</TextInfo>
+          <TextContext>
+            La venta de productos artesanales han crecido al rededor del mundo
+          </TextContext>
+          <VideoDiv>
+            <video src="./frutas.mp4" autoPlay loop muted></video>
+          </VideoDiv>
+        </RightCard>
+        <LeftCard>
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DateCalendar", "DateCalendar"]}>
+              <DemoItem label="">
+                <DateCalendar />
+              </DemoItem>
+            </DemoContainer>
+          </LocalizationProvider> */}
+        </LeftCard>
+      </CardSection>
+      <Box style={{ display: "flex", flexDirection: "row", width: "100%" }}>
+        <Box style={{ flex: 2 }}>
+          <WelcomeText>Ordenes recientes</WelcomeText>
+          <SaleDashboard values={values} setValues={setValues} />
+        </Box>
+        <Box
+          style={{ flex: 1 }}
+          // sx={{
+          //   justifyContent: "center",
+          //   alignItems: "center",
+          //   background: "grey",
+          //   margin: 4,
+          // }}
+        >
+          <MapsText>Puntos en el mapa</MapsText>
+          <GoogleMaps />
+        </Box>
+      </Box>
+      {/* </Box> */}
+    </Layout>
   );
 };
 

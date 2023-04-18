@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Typography, styled, Breadcrumbs, Link } from "@mui/material";
-import GetAllSale from "../saleCrud/GetAllSale";
+import GetAllSale from "../CRUDS/saleCrud/GetAllSale";
 import Sale from "@/domain/entities/sale";
 import SaleRepo from "@/infrastructure/implementation/httpRequest/axios/SaleRepo";
 import GetAllSaleUseCase from "@/application/usecases/saleUseCase/GetAllSaleUseCase";
+import Layout from "../layout";
 
 function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
   event.preventDefault();
@@ -49,35 +50,37 @@ function Sale() {
   }, []);
 
   return (
-    <div className="view">
-      <Welcome>Ventas</Welcome>
-      <div role="presentation" onClick={handleClick}>
-        <Breadcrumbs
-          aria-label="breadcrumb"
-          sx={{
-            color: "#7A797E",
-            fontSize: 14,
-            paddingBottom: 2,
-            fontFamily: "Poppins",
-            fontWeight: 500,
-          }}
-        >
-          <Link underline="hover" color="inherit" href="../orders">
-            Dashboard
-          </Link>
-          <Link
-            underline="hover"
-            color="#7E57C2"
-            href="/material-ui/react-breadcrumbs/"
-            aria-current="page"
+    <Layout>
+      <div>
+        <Welcome>Ventas</Welcome>
+        <div role="presentation" onClick={handleClick}>
+          <Breadcrumbs
+            aria-label="breadcrumb"
+            sx={{
+              color: "#7A797E",
+              fontSize: 14,
+              paddingBottom: 2,
+              fontFamily: "Poppins",
+              fontWeight: 500,
+            }}
           >
-            Venta
-          </Link>
-        </Breadcrumbs>
+            <Link underline="hover" color="inherit" href="../orders">
+              Dashboard
+            </Link>
+            <Link
+              underline="hover"
+              color="#7E57C2"
+              href="/material-ui/react-breadcrumbs/"
+              aria-current="page"
+            >
+              Venta
+            </Link>
+          </Breadcrumbs>
+        </div>
+        <Text>Aquí puedes observar todas tus ventas realizadas!</Text>
+        <GetAllSale values={values} setValues={setValues} />
       </div>
-      <Text>Aquí puedes observar todas tus ventas realizadas!</Text>
-      <GetAllSale values={values} setValues={setValues} />
-    </div>
+    </Layout>
   );
 }
 export default Sale;

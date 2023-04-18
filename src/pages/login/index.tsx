@@ -9,35 +9,48 @@ import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider,  } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { BoxLogo, ButtonStyled, Welcome, WelcomeBack } from "./style";
 import { createMuiTheme, Paper } from "@mui/material";
+import * as Yup from "yup";
+import {
+  useFormik,
+  FormikProps,
+  FormikErrors,
+  Form,
+  Field,
+  FormikValues,
+  Formik,
+} from "formik";
+import { Snackbar } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 
 interface LoginForm {
   email?: string;
   password?: string;
 }
-const theme2 = createMuiTheme({
-    palette: {
-      primary: {
-        main: '#7e57c2' // aquí puedes reemplazar el color actual por el que deseas utilizar como color primario
-      }
-    }
-  });
-  
+
 const theme = createTheme({
-    palette: {
-        primary: {
-          main: '#7e57c2' // aquí puedes reemplazar el color actual por el que deseas utilizar como color primario
-        }
-      }
+  palette: {
+    primary: {
+      main: "#7e57c2",
+    },
+  },
 });
 
-const LoginPage = () => {
+const loginSchema = Yup.object().shape({
+  email: Yup.string().email("Email inválido").required("Email es requerido"),
+  password: Yup.string().required("Contraseña es requerida"),
+});
+
+const LoginPage = (props: FormikProps<FormikValues>) => {
   const [values, setValues] = useState<LoginForm>({
     email: "",
     password: "",
   });
+
+  const [showErrorSnackbar, setShowErrorSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
 
   const dispatch = useDispatch();
   const router = useRouter();
@@ -53,6 +66,7 @@ const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      await loginSchema.validate(values, { abortEarly: false });
       const response = await axios.post(
         "http://www.quick2goapiprod.somee.com/api/cuentas/login/",
         values
@@ -67,10 +81,36 @@ const LoginPage = () => {
     }
   };
 
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: loginSchema,
+    onSubmit: async (values) => {
+      try {
+        await loginSchema.validate(values, { abortEarly: false });
+        const response = await axios.post(
+          "http://www.quick2goapiprod.somee.com/api/cuentas/login/",
+          values
+        );
+        if (response.status === 200) {
+          const token = response.data.token;
+          dispatch(login(token));
+          router.push("/body");
+        }
+      } catch (error) {
+        setSnackbarMessage("Email o contraseña incorrectos");
+        setShowErrorSnackbar(true);
+        console.error(error);
+      }
+    },
+  });
+
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Grid container component="main" sx={{ height: "100vh" }}>
+        <Grid container component="main" sx={{ height: "80vh" }}>
           <CssBaseline />
           <Grid
             item
@@ -84,11 +124,12 @@ const LoginPage = () => {
                   ? t.palette.grey[50]
                   : t.palette.grey[900],
               backgroundPosition: "center",
+              position: "center",
             }}
           />
           <Grid
             item
-            xs={12}
+            xs={13}
             sm={6}
             md={5}
             sx={{
@@ -96,13 +137,13 @@ const LoginPage = () => {
                 t.palette.mode === "light"
                   ? t.palette.grey[50]
                   : t.palette.grey[900],
-              padding: 7,
+              padding: 10,
             }}
           >
             <Box
               sx={{
-                my: 10,
-                mx: 4,
+                my: 3,
+                mx: 3,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -142,7 +183,7 @@ const LoginPage = () => {
               </WelcomeBack>
               <Box
                 component="form"
-                onSubmit={handleSubmit}
+                onSubmit={formik.handleSubmit}
                 noValidate
                 sx={{ mt: 1 }}
               >
@@ -154,7 +195,6 @@ const LoginPage = () => {
                     fontWeight: 400,
                   }}
                   margin="normal"
-                  required
                   fullWidth
                   id="email"
                   label="Email"
@@ -162,8 +202,10 @@ const LoginPage = () => {
                   autoComplete="email"
                   autoFocus
                   type="email"
-                  value={values.email}
-                  onChange={handleChange}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
+                  error={formik.touched.email && Boolean(formik.errors.email)}
+                  helperText={formik.touched.email && formik.errors.email}
                   color="primary"
                 />
                 <TextField
@@ -174,22 +216,28 @@ const LoginPage = () => {
                     fontWeight: 400,
                   }}
                   margin="normal"
-                  required
                   fullWidth
                   name="password"
                   label="Password"
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  value={values.password}
-                  onChange={handleChange}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.password && Boolean(formik.errors.password)
+                  }
+                  helperText={formik.touched.password && formik.errors.password}
                 />
                 <ButtonStyled type="submit" fullWidth sx={{ mt: 3, mb: 2 }}>
                   Entrar
                 </ButtonStyled>
                 <Grid container>
                   <Grid item xs></Grid>
-                  <Grid item style={{ justifyContent: "center", marginRight:30 }}>
+                  <Grid
+                    item
+                    style={{ justifyContent: "center", marginRight: 30 }}
+                  >
                     <WelcomeBack
                       style={{
                         fontSize: 14,
@@ -215,6 +263,18 @@ const LoginPage = () => {
                   </Grid>
                 </Grid>
               </Box>
+              <Snackbar
+                open={showErrorSnackbar}
+                autoHideDuration={6000}
+                onClose={() => setShowErrorSnackbar(false)}
+              >
+                <MuiAlert
+                  severity="error"
+                  onClose={() => setShowErrorSnackbar(false)}
+                >
+                  {snackbarMessage}
+                </MuiAlert>
+              </Snackbar>
             </Box>
           </Grid>
         </Grid>
@@ -223,15 +283,3 @@ const LoginPage = () => {
   );
 };
 export default LoginPage;
-
-// <form onSubmit={handleSubmit}>
-//     <div>
-//         <label htmlFor="email">Correo electrónico:</label>
-//         <input type="email" id="email" name="email" value={values.email} onChange={handleChange} />
-//     </div>
-//     <div>
-//         <label htmlFor="password">Contraseña:</label>
-//         <input type="password" id="password" name="password" value={values.password} onChange={handleChange} />
-//     </div>
-//     <button type="submit">Iniciar sesión</button>
-// </form>

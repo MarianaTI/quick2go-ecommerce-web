@@ -50,7 +50,7 @@ export const LogoStyled = styled(Box)`
 export const ItemStyled = styled(ListItem)`
   && {
     margin: 12px 0;
-    padding: 0 2px;
+    padding: 0 0.5px;
     display: flex;
     flex-direction: column;
   }
@@ -66,7 +66,7 @@ export const IconStyled = styled(ListItemIcon)`
 `;
 export const ListItems = styled(ListItem)`
     && {
-      padding: 0.2rem 1.5rem;
+      padding: 0 1.2rem;
       width: 100%;
       position: relative;
       transition: 0;

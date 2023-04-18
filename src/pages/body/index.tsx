@@ -23,20 +23,15 @@ import {
   ListStyled,
   LogoStyled,
 } from "./style";
-import { Box, ListItemButton, ListItemText } from "@mui/material";
+import { Box, Link, ListItemButton, ListItemText } from "@mui/material";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import NextLink from "next/link";
-import Productos from "../products/index";
-import Dashboard from "../dashboard/index";
-import Pedidos from "../orders/index"
-import Venta from "../sale/index"
 import { useState } from "react";
 
 const contentWidth = 800;
 const SideNavigation = () => {
-  const [menudata, setMenudata] = useState("");
 
   const router = useRouter();
   return (
@@ -71,22 +66,30 @@ const SideNavigation = () => {
                   padding: "0.5rem 1.5rem 0.5rem",
                 }}
               />
-              <ListItems onClick={() => setMenudata("Dashboard")}>
+              <ListItems>
                 <IconStyled>
                   <FontAwesomeIcon icon={faHouse} />
                 </IconStyled>
+                <Link href="/dashboard"  style={{textDecoration:"none", padding: 0}}>
                 <ListItemText
                   primary="Dashboard"
                   primaryTypographyProps={{
-                    fontFamily: "Poppins",
-                    fontWeight: 500,
+                    display: "flex",
+                      alignItems: "center",
+                      fontSize: 14,
+                      color: "#373739",
+                      fontFamily: "Poppins",
+                      fontWeight: 500,
+                      padding: "12px 16px 12px 0",
                   }}
                 />
+                </Link>
               </ListItems>
-              <ListItems onClick={() => setMenudata("Productos")}>
+              <ListItems>
                   <IconStyled>
                     <FontAwesomeIcon icon={faBasketShopping} />
                   </IconStyled>
+                  <Link href="/products"  style={{textDecoration:"none", padding: 0}}>
                   <ListItemText
                     primary="Productos"
                     primaryTypographyProps={{
@@ -99,11 +102,13 @@ const SideNavigation = () => {
                       padding: "12px 16px 12px 0",
                     }}
                   />
+                  </Link>
               </ListItems>
-              <ListItems onClick={() => setMenudata("Pedidos")}>
+              <ListItems>
                 <IconStyled>
                   <FontAwesomeIcon icon={faTruckFast} />
                 </IconStyled>
+                <Link href="/orders"  style={{textDecoration:"none", padding: 0}}>
                 <ListItemText
                   primary="Pedidos"
                   primaryTypographyProps={{
@@ -116,11 +121,13 @@ const SideNavigation = () => {
                     padding: "12px 16px 12px 0",
                   }}
                 />
+                </Link>
               </ListItems>
-              <ListItems onClick={() => setMenudata("Venta")}>
+              <ListItems>
                 <IconStyled>
                   <FontAwesomeIcon icon={faCartShopping} />
                 </IconStyled>
+                <Link href="/sale"  style={{textDecoration:"none", padding: 0}}>
                 <ListItemText
                   primary="Venta"
                   primaryTypographyProps={{
@@ -133,6 +140,7 @@ const SideNavigation = () => {
                     padding: "12px 16px 12px 0",
                   }}
                 />
+                </Link>
               </ListItems>
               <ListItemText
                 primary="Opciones"
@@ -182,19 +190,7 @@ const SideNavigation = () => {
             </BoxHelp>
           </ListStyled>
         </BoxStyled>
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            marginLeft: 3,
-            width: contentWidth,
-            marginTop: 10,
-          }}
-        >
-          {menudata == "Dashboard" && <Dashboard />}
-          {menudata == "Productos" && <Productos />}
-          {menudata == "Pedidos" && <Pedidos />}
-          {menudata == "Venta" && <Venta />}
+        <Box component="main">
         </Box>
       </Box>
     </>

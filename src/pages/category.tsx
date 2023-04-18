@@ -1,7 +1,7 @@
 import { Breadcrumbs, Link, Typography } from "@mui/material";
-import CreateCategory from "./categoryCrud/CreateCategory";
-import GetAllCategory from "./categoryCrud/GetAllCategory";
-import UpdateCategory from "./categoryCrud/UpdateCategory";
+import CreateCategory from "./CRUDS/categoryCrud/CreateCategory";
+import GetAllCategory from "./CRUDS/categoryCrud/GetAllCategory";
+import UpdateCategory from "./CRUDS/categoryCrud/UpdateCategory";
 
 function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
   event.preventDefault();
